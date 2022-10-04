@@ -1,7 +1,6 @@
 #!/bin/bash
 docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
 cd $HOME/charon-distributed-validator-node
-cp docker-compose.yml docker-compose.yml_bkp
 git reset --hard
 git pull
 git checkout -- $HOME/charon-distributed-validator-node/docker-compose.yml
