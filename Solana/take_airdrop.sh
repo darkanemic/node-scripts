@@ -9,5 +9,5 @@ do
                 printf "."
                 sleep 1
         done
-        printf "\n
+        printf "\n"
 done
