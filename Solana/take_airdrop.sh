@@ -1,4 +1,5 @@
 #!/bin/bash
+
 while true
 do
         solana airdrop 1
