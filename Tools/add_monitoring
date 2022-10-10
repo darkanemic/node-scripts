@@ -1,3 +1,5 @@
+#!/bin/bash
+cd $HOME
 OWNER=dark
 echo 'export OWNER='$OWNER >> $HOME/.profile
 read -p "Введите имя хоста: " HOSTNAME
