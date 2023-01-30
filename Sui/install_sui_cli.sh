@@ -13,7 +13,14 @@ apt install cmake -y
 sudo apt install curl -y
 sudo apt-get install git-all -y
 sudo apt-get install screen
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  &&
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if [ $? -eq 0 ]
+then
+    break
+else
+    echo "wait"
+    sleep 1
+fi
 source $HOME/.cargo/env
 rustup install stable
 rustup update stable
