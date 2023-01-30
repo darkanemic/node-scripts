@@ -13,10 +13,13 @@ apt install cmake -y
 sudo apt install curl -y
 sudo apt-get install git-all -y
 sudo apt-get install screen
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  &&
 source $HOME/.cargo/env
 rustup install stable
 rustup update stable
 rustup default stable
 screen -S suicli
-cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui && sui genesis --force && rm -rf .sui/sui_config/client.yaml && sui client
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui
+sui genesis --force
+rm -rf .sui/sui_config/client.yaml
+sui client
