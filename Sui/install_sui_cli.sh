@@ -19,6 +19,4 @@ rustup install stable
 rustup update stable
 rustup default stable
 screen -S suicli
-cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui && sui genesis --force
-rm -rf .sui/sui_config/client.yaml
-sui client
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch testnet sui && sui genesis --force && rm -rf .sui/sui_config/client.yaml && sui client
