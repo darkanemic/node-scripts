@@ -19,6 +19,7 @@ massa_wallet_address=$(GetWalletAdress)
 cd $HOME/massa/massa-client
 echo source $HOME/.profile
 #$({CLI} wallet_generate_secret_key)
+clear
 BuckupKeys
 echo "Ваш адресс для запроса токенов:" $massa_wallet_address
 sleep 3s
