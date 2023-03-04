@@ -31,7 +31,8 @@ echo "Регистрируем стейкинг адресс:"
 sleep 2s
 echo node_start_staking $massa_wallet_address
 sleep 2s
-echo "Ваш адресс стейкинга теперь:" $(./massa-client --pwd $massa_pass node_get_staking_addresses)
+massa_staking_address=$(./massa-client --pwd $massa_pass node_get_staking_addresses)
+echo "Ваш адресс стейкинга теперь:" $massa_staking_address
 sleep 2s
 echo "Введите ваш discordID(Узнать можно в боте Massa):"
 read massa_discord_id
