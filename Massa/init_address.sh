@@ -4,24 +4,24 @@ function BackupKeys(){
     mkdir $HOME/backup_massa > /dev/null
     cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup_massa/node_privkey.key
     cp $HOME/massa/massa-client/wallet.dat $HOME/backup_massa/wallet.dat
-    sleep 2s
+    sleep 3s
 }
 
 function GetWalletAdress(){
     {GetWalletAdress}=$({CLI} wallet_info | grep Address | awk '{ print $2 }')
 }
 
+CLI=./massa-client --pwd $massa_pass
+massa_wallet_address=$(GetWalletAdress)
+
 cd $HOME/massa/massa-client
 echo source $HOME/.profile
-CLI=./massa-client --pwd $massa_pass
+#$({CLI} wallet_generate_secret_key)
 BuckupKeys
-#./massa-client --pwd $massa_pass wallet_generate_secret_key
-massa_wallet_address=$(GetWalletAdress)
-sleep 2s
 echo "Ваш адресс для запроса токенов:" $massa_wallet_address
-sleep 2s
+sleep 3s
 echo "На вашем кошельке уже должны быть токены запрошеные в дискорде"
-sleep 2s
+sleep 3s
 balance=$(./massa-client --pwd $massa_pass wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
 int_balance=${balance%%.*}
 echo "balance" $int_balance
