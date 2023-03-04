@@ -25,7 +25,7 @@ echo "Ваш адресс для запроса токенов:" $massa_wallet_a
 sleep 3s
 echo "На вашем кошельке уже должны быть токены запрошеные в дискорде"
 sleep 3s
-balance=$(./massa-client --pwd $massa_pass wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+balance=$(${CLI} wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
 int_balance=${balance%%.*}
 echo "balance" $int_balance
 if [ $int_balance -gt "100" ]; then
