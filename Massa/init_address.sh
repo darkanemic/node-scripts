@@ -5,6 +5,7 @@ function BackupKeys(){
     cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup_massa/node_privkey.key
     cp $HOME/massa/massa-client/wallet.dat $HOME/backup_massa/wallet.dat
     sleep 3s
+    {BackupKeys}=true
 }
 
 function GetWalletAdress(){
