@@ -1,13 +1,22 @@
 #!/bin/bash
+function BackupKeys(){
+    echo "Бэкапим ключи в папку $HOME/backup_massa/"
+    mkdir $HOME/backup_massa > /dev/null
+    cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup_massa/node_privkey.key
+    cp $HOME/massa/massa-client/wallet.dat $HOME/backup_massa/wallet.dat
+    sleep 2s
+}
+
+function GetWalletAdress(){
+    {GetWalletAdress}=$({CLI} wallet_info | grep Address | awk '{ print $2 }')
+}
+
 cd $HOME/massa/massa-client
-echo source .profile
+echo source $HOME/.profile
+CLI=./massa-client --pwd $massa_pass
+BuckupKeys
 #./massa-client --pwd $massa_pass wallet_generate_secret_key
-echo "Бэкапим ключи в папку $HOME/backup_massa/"
-mkdir $HOME/backup_massa > /dev/null
-cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup_massa/node_privkey.key
-cp $HOME/massa/massa-client/wallet.dat $HOME/backup_massa/wallet.dat
-sleep 2s
-massa_wallet_address=$(./massa-client --pwd $massa_pass wallet_info | grep Address | awk '{ print $2 }')
+massa_wallet_address=GetWalletAdress
 sleep 2s
 echo "Ваш адресс для запроса токенов:" $massa_wallet_address
 sleep 2s
