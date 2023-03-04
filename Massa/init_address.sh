@@ -3,6 +3,7 @@ cd $HOME/massa/massa-client
 echo source .profile
 #./massa-client --pwd $massa_pass wallet_generate_secret_key
 echo "Бэкапим ключи в папку $HOME/backup_massa/"
+mkdir $HOME/backup_massa
 cp $HOME/massa/massa-node/config/node_privkey.key $HOME/backup_massa/node_privkey.key
 cp $HOME/massa/massa-client/wallet.dat $HOME/backup_massa/wallet.dat
 sleep 2s
