@@ -9,7 +9,7 @@ function BackupKeys(){
 }
 
 function GetWalletAdress(){
-    {GetWalletAdress}=$({CLI} wallet_info | grep Address | awk '{ print $2 }')
+    {GetWalletAdress}=echo $(${CLI} wallet_info | grep Address | awk '{ print $2 }')
 }
 
 CLI=./massa-client --pwd $massa_pass
