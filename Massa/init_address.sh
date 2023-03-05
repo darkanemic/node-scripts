@@ -56,6 +56,7 @@ function StakingAddressReg(){
 }
 
 clear
+cd $HOME/massa/massa-client
 source $HOME/.profile
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
 
@@ -88,7 +89,7 @@ else
 		exit
 	fi
 fi
-StackingAddressReg
+StakingAddressReg
 read -p "Введите ваш discordID (Узнать можно в боте Massa):" massa_discord_id
 node_testnet_rewards_program_ownership_proof $wallet_address $massa_discord_id
 echo "Для завершения регистрации, отправте данный код боту..."
