@@ -78,7 +78,7 @@ function WaitPressY(){
 function SendYourIPtoBot(){
 	echo "Сообщите дискорд-боту Massa  IP вашего сервера:"
 	ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
-	echo "Я отправил IP ботуи мы можем продолжать (нажмите Y). Прервать скрипт (Нажатие любой другой клавишу)"
+	echo "Я отправил IP боту и мы можем продолжать (нажмите Y). Прервать скрипт (Нажатие любой другой клавишу)"
 	WaitPressY
 }
 function SendAddresstoFaucet(){
