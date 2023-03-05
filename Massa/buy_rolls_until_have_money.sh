@@ -54,7 +54,7 @@ function wait() {
 
 
 function show_last_update  {
-    date=$(date +"%H:%M")
+    date=$(date +"%H:%M %e %b")
     echo Last Update: ${date}
 }
 
