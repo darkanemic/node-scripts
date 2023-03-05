@@ -84,6 +84,7 @@ function wait_more() {
         fi
         
     done
+    printf "/n"
 } 
 
 
