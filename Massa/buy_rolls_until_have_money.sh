@@ -52,10 +52,11 @@ function wait(sec) {
 }
 
 
-function show_lust_update  {
+function show_last_update  {
         date=$(date +"%H:%M")
         echo Last Update: ${date}
 }
+
 
 clear
 colors
@@ -77,6 +78,6 @@ do
 		else
                 echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
         fi
-        show_lust_update
+        show_last_update
         wait(60)
 done
