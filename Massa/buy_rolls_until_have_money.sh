@@ -60,7 +60,7 @@ function show_last_update  {
 
 function wait_more() {
     MESSAGE="Wait"
-    WTIMEOUT=0
+    WTIMEOUT=$1
     ITEM_ARR=0 #current item counter
     CH_S[0]='-' #pseudographic items
     CH_S[1]='/'
