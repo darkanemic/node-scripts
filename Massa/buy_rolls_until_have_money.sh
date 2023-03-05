@@ -14,7 +14,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}-----------------------------------------------------------------------------\n${NORMAL}"
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
 }
 
 
@@ -29,9 +29,6 @@ function get_balance(){
 
 
 function buy_roll(){
-	line
-    echo "Buy a Roll..."
-    line
 	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
 	echo $BuyRollResult
 	OutputPause
@@ -57,6 +54,9 @@ do
         line
         if [ $int_balance -gt "100" ]; then
                 echo "Balance great than 100"
+               	line
+                echo "Buy a Roll..."
+                line
                 buy_roll
 		else
                 echo "Balance less than 100"
