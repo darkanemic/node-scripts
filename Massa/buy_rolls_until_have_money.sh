@@ -14,7 +14,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+  echo -e "${GREEN}-------------------------------------------------------------------------------------------------------------${NORMAL}"
 }
 
 
@@ -99,6 +99,7 @@ while true
 do
         balance=$(get_balance)
         int_balance=${balance%%.*}
+        line
         echo "We have ${int_balance} tokens on balance"
         line
         if [ $int_balance -gt "100" ]; then
@@ -107,6 +108,7 @@ do
                 buy_roll
 		else
                 echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
+                line
         fi
         show_last_update
         line
