@@ -59,7 +59,6 @@ function show_last_update  {
 }
 
 function wait_more() {
-    MESSAGE="Wait"
     WTIMEOUT=$1
     ITEM_ARR=0 #current item counter
     CH_S[0]='-' #pseudographic items
@@ -67,11 +66,10 @@ function wait_more() {
     CH_S[2]='|'
     CH_S[3]='\'
 
-    echo $MESSAGE
     while [ $WTIMEOUT -ge 0 ]; do
     
         #print timeout and current pseudographic char
-        echo -n "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
+        echo -n -e "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
         #tput rc #restore cursor position
         sleep 1
         
