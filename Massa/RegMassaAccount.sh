@@ -89,6 +89,7 @@ function SendAddresstoFaucet(){
 
 function RegOwner(){
 	read -p "Введите ваш discordID (Узнать можно в боте Massa):" massa_discord_id
+	line
 	echo $(${CLI} node_testnet_rewards_program_ownership_proof $wallet_address $massa_discord_id)
 	echo "Для завершения регистрации владельца, отправте данный код боту..."
 }
