@@ -7,9 +7,9 @@ function OutputPause(){
 
 
 function colors {
-  GREEN="\e[32m"
-  RED="\e[39m"
-  NORMAL="\e[0m"
+    GREEN="\e[32m"
+    RED="\e[39m"
+    NORMAL="\e[0m"
 }
 
 
@@ -43,19 +43,19 @@ function get_wallet_info {
 
 function wait() {
     printf "sleep"
-        sec=$1
-        for((m=0; m<$sec; m++))
-        do
-                printf "."
-                sleep 1s
-        done
-        printf "\n"
+    sec=$1
+    for((m=0; m<$sec; m++))
+    do
+        printf "."
+        sleep 1s
+    done
+    printf "\n"
 }
 
 
 function show_last_update  {
-        date=$(date +"%H:%M")
-        echo Last Update: ${date}
+    date=$(date +"%H:%M")
+    echo Last Update: ${date}
 }
 
 
@@ -80,5 +80,5 @@ do
                 echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
         fi
         show_last_update
-        wait(60)
+        wait "60"
 done
