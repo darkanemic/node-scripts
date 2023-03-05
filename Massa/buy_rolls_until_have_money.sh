@@ -30,7 +30,7 @@ function get_balance(){
 
 function buy_roll(){
 	line
-    echo -e "\nBuy a Roll..."
+    printf "Buy a Roll..."
     line
 	#BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
 	#echo $BuyRollResult
