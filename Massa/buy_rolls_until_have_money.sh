@@ -109,5 +109,6 @@ do
                 echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
         fi
         show_last_update
+        line
         wait_more "60"
 done
