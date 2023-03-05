@@ -29,8 +29,8 @@ function get_balance(){
 
 
 function buy_roll(){
-	#BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
-	#echo $BuyRollResult
+	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
+	echo $BuyRollResult
 	OutputPause
     line
 }
