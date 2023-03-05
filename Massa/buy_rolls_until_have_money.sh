@@ -70,7 +70,7 @@ function wait_more() {
     while [ $WTIMEOUT -ge 0 ]; do
     
         #print timeout and current pseudographic char
-        printf '%3s %s' $WTIMEOUT ${CH_S[ITEM_ARR]}
+        printf $WTIMEOUT ${CH_S[ITEM_ARR]}
         tput rc #restore cursor position
         sleep 1
         
@@ -79,13 +79,15 @@ function wait_more() {
         let "ITEM_ARR=ITEM_ARR+1"
         
         if [ $ITEM_ARR -eq 4 ];then 
-        #if items ctr > number of array items
-        #starting with 0 item
-        let "ITEM_ARR=0"
+            #if items ctr > number of array items
+            #starting with 0 item
+            let "ITEM_ARR=0"
         fi
         
     done
 } 
+
+
 clear
 colors
 cd $HOME/massa/massa-client/
