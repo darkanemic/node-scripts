@@ -124,6 +124,7 @@ function Main(){
 }
 
 clear
+colors
 cd $HOME/massa/massa-client/
 source $HOME/.profile
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
