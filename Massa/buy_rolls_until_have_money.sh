@@ -103,11 +103,11 @@ do
         echo "We have ${int_balance} tokens on balance"
         line
         if [ $int_balance -gt "100" ]; then
-                echo "Balance great than 100, then Buy a Roll..."
+                echo "Balance great than 101, then Buy a Roll..."
                	line
                 buy_roll
 		else
-                echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
+                echo "Balance less than 101, wait until the balance will be replenished... Request more in faucet..."
                 line
         fi
         show_last_update
