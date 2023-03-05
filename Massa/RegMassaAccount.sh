@@ -4,6 +4,16 @@ function OutputPause(){
 	sleep 2s
 }
 
+function colors {
+  GREEN="\e[32m"
+  RED="\e[39m"
+  NORMAL="\e[0m"
+}
+
+function line {
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+}
+
 function BackupKeys(){
 	echo "Делаем бэкап ключей в папку $HOME/backup_massa/"
 	mkdir -p $HOME/backup_massa
@@ -41,8 +51,8 @@ function GenerateKeys(){
 
 function BuyRoll(){
 	echo "Покупаем Roll..."
-#	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
-#	echo $BuyRollResult
+	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
+	echo $BuyRollResult
 	OutputPause
 }
 
@@ -65,27 +75,33 @@ function WaitPressY(){
 	fi
 }
 
-functions SendYourIPtoBot(){
+function SendYourIPtoBot(){
 	echo "Сообщите дискорд-боту Massa  IP вашего сервера:"
 	ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
-	echo "Я отправил IP боту"
+	echo "Я отправил IP ботуи мы можем продолжать (нажмите Y). Прервать скрипт (Нажатие любой другой клавишу)"
+	WaitPressY
+}
+function SendAddresstoFaucet(){
+	echo "Ваш адресс для запроса токенов: $wallet_adress"
+	echo "Я уже запросили токены, подождал пару минут и мы можем продолжать (нажмите Y). Прервать скрипт (Нажатие любой другой клавишу)"
 	WaitPressY
 }
 
-function SetupOwner(){
+function RegOwner(){
 	read -p "Введите ваш discordID (Узнать можно в боте Massa):" massa_discord_id
-	node_testnet_rewards_program_ownership_proof $wallet_address $massa_discord_id
+	echo $(${CLI} node_testnet_rewards_program_ownership_proof $wallet_address $massa_discord_id)
 	echo "Для завершения регистрации владельца, отправте данный код боту..."
 }
 
-functino Main(){
-	CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
-	wallet_address=$(GetWalletAddress)
+function Main(){
 	balance=$(GetBalance)
 
 	GenerateKeys
+	line
 	BackupKeys
+	line
 	SendYourIPtoBot
+	line
 
 	integer_balance=${balance%%.*}
 
@@ -102,10 +118,14 @@ functino Main(){
 		BuyRoll
 	fi
 	RegStakingAddress
+	line
+	RegOwner
 }
 
 clear
 cd $HOME/massa/massa-client/
 source $HOME/.profile
+CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
+wallet_address=$(GetWalletAddress)
 
 Main
