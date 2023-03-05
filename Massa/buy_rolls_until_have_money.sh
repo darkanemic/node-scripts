@@ -58,7 +58,34 @@ function show_last_update  {
     echo Last Update: ${date}
 }
 
+function wait_more() {
+    MESSAGE="Wait"
+    WTIMEOUT=0
+    ITEM_ARR=0 #current item counter
+    CH_S[0]='-' #pseudographic items
+    CH_S[1]='/'
+    CH_S[2]='|'
+    CH_S[3]='\'
 
+    while [ $WTIMEOUT -ge 0 ]; do
+    
+        #print timeout and current pseudographic char
+        printf '%3s %s' $WTIMEOUT ${CH_S[ITEM_ARR]}
+        tput rc #restore cursor position
+        sleep 1
+        
+        #decrease timeout and increase current item ctr.
+        let "WTIMEOUT=WTIMEOUT-1"
+        let "ITEM_ARR=ITEM_ARR+1"
+        
+        if [ $ITEM_ARR -eq 4 ];then 
+        #if items ctr > number of array items
+        #starting with 0 item
+        let "ITEM_ARR=0"
+        fi
+        
+    done
+} 
 clear
 colors
 cd $HOME/massa/massa-client/
@@ -80,5 +107,5 @@ do
                 echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
         fi
         show_last_update
-        wait "60"
+        wait_more "60"
 done
