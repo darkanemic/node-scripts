@@ -14,7 +14,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}\n"
+  echo -e "${GREEN}-----------------------------------------------------------------------------\n${NORMAL}"
 }
 
 
@@ -30,7 +30,7 @@ function get_balance(){
 
 function buy_roll(){
 	line
-    echo -e "/nBuy a Roll..."
+    echo -e "\nBuy a Roll..."
     line
 	#BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
 	#echo $BuyRollResult
