@@ -72,7 +72,7 @@ function wait_more() {
     
         #print timeout and current pseudographic char
         echo -n "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
-        tput rc #restore cursor position
+        #tput rc #restore cursor position
         sleep 1
         
         #decrease timeout and increase current item ctr.
