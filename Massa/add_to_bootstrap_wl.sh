@@ -19,6 +19,7 @@ function AddToWL {
 	echo $(${CLI} node_bootstrap_whitelist add $NeedBootstrapIP)
 	line
 	echo "IP $NeedBootstrapIP добавлен в whaitelist"
+	line
 }
 
 clear
