@@ -41,8 +41,9 @@ function get_wallet_info {
 }
 
 
-function wait(sec) {
+function wait() {
     printf "sleep"
+        sec=$1
         for((m=0; m<$sec; m++))
         do
                 printf "."
