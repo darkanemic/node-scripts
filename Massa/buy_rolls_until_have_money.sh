@@ -71,7 +71,7 @@ function wait_more() {
     while [ $WTIMEOUT -ge 0 ]; do
     
         #print timeout and current pseudographic char
-        printf '%3s %s' $WTIMEOUT ${CH_S[ITEM_ARR]}
+        echo -n "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
         tput rc #restore cursor position
         sleep 1
         
