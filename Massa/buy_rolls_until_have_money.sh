@@ -35,8 +35,26 @@ function buy_roll(){
     line
 }
 
+
 function get_wallet_info {
     echo $(${CLI} wallet_info)
+}
+
+
+function wait(sec) {
+    printf "sleep"
+        for((m=0; m<$sec; m++))
+        do
+                printf "."
+                sleep 1s
+        done
+        printf "\n"
+}
+
+
+function show_lust_update  {
+        date=$(date +"%H:%M")
+        echo Last Update: ${date}
 }
 
 clear
@@ -53,21 +71,12 @@ do
         echo "We have ${int_balance} tokens on balance"
         line
         if [ $int_balance -gt "100" ]; then
-                echo "Balance great than 100"
+                echo "Balance great than 100, then Buy a Roll..."
                	line
-                echo "Buy a Roll..."
-                line
                 buy_roll
 		else
-                echo "Balance less than 100"
+                echo "Balance less than 100, wait until the balance will be replenished... Request more in faucet..."
         fi
-        date=$(date +"%H:%M")
-        echo Last Update: ${date}
-        printf "sleep"
-        for((m=0; m<60; m++))
-        do
-                printf "."
-                sleep 1s
-        done
-        printf "\n"
+        show_lust_update
+        wait(60)
 done
