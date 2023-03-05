@@ -57,8 +57,7 @@ do
         line
         if [ $int_balance -gt "100" ]; then
                 echo "Balance great than 100"
-                resp=$(buy_roll)
-                echo $resp
+                buy_roll
 		else
                 echo "Balance less than 100"
         fi
