@@ -65,7 +65,7 @@ do
         date=$(date +"%H:%M")
         echo Last Update: ${date}
         printf "sleep..."
-        for((m=0; m<10; m++))
+        for((m=0; m<60; m++))
         do
                 printf "."
                 sleep 1s
