@@ -123,7 +123,7 @@ do
         #get_balance
 
         balance=$(get_balance)
-        echo $(balance)
+        echo $balance
         echo $(get_rolls)
         line
         wait_more "60"
