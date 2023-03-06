@@ -113,14 +113,20 @@ do
         line
         #echo "We have ${int_balance} IRONs on balance"
         #line
-        if [ $int_balance -gt "100" ]; then
-                echo "Balance great than 101 IRON, then Buy a Roll..."
-               	line
-                buy_roll
-		else
-                echo -e "Balance less than 101, wait until the balance will be replenished... Request more in faucet... \n\t"
-                echo  "Address for request: $wallet_address"
-                line
+        if [ $int_balance -ne ""]; then
+                if [ $int_balance -gt "100" ]; then
+                    echo "Balance great than 101 IRON, then Buy a Roll..."
+               	    line
+                    buy_roll
+		        else
+                    echo -e "Balance less than 101, wait until the balance will be replenished... Request more in faucet... \n\t"
+                    echo  "Address for request: $wallet_address"
+                    line
+                fi
+        else
+            line
+            echo -e "${RED}The node is not running correctly. The bootstrap may be missing.${NORMAL}"
+            line
         fi
         show_last_update
         line
