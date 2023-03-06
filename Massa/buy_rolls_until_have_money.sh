@@ -8,7 +8,7 @@ function OutputPause(){
 
 function colors {
     GREEN="\e[32m"
-    RED="\e[39m"
+    RED="\033[41m"
     NORMAL="\e[0m"
 }
 
@@ -130,7 +130,7 @@ do
                 line
         else
             line
-            echo -e "${RED}The node is not running correctly. The bootstrap may be missing.${NORMAL}"
+            echo -e "${RED}The node is not running correctly...The bootstrap may be missing...${NORMAL}"
             line
         fi
         wait_more "60"
