@@ -113,7 +113,7 @@ do
         line
         #echo "We have ${int_balance} IRONs on balance"
         #line
-        if [ $int_balance -ne "" ]; then
+        if [[ $int_balance -ne "" ]]; then
                 if [ $int_balance -gt "100" ]; then
                     echo "Balance great than 101 IRON, then Buy a Roll..."
                	    line
