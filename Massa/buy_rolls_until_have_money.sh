@@ -123,16 +123,16 @@ do
                     echo  "Address for request: $wallet_address"
                     line
                 fi
+                show_last_update
+                line
+                echo "Current wallet balance: $(get_int_balance) IRONs"
+                echo "Current active rolls  : $(get_rolls) ROLLs"
+                line
         else
             line
             echo -e "${RED}The node is not running correctly. The bootstrap may be missing.${NORMAL}"
             line
         fi
-        show_last_update
-        line
-        echo "Current wallet balance: $(get_int_balance) IRONs"
-        echo "Current active rolls  : $(get_rolls) ROLLs"
-        line
         wait_more "60"
         clear
 done
