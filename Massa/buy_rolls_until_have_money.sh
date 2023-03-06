@@ -111,7 +111,6 @@ do
         line
         echo -e "${GREEN}from dArk#0149 with cyberlove${NORMAL}"
         line
-        line
         int_balance=$(get_int_balance)
         if [[ $int_balance -ne "" ]]; then
                 line
