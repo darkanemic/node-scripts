@@ -103,15 +103,15 @@ cd $HOME/massa/massa-client/
 source $HOME/.profile
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
 wallet_address=$(get_wallet_address)
-line
-echo -e "${GREEN}from dArk#0149 with cyberlove${NORMAL}"
-line
 
 while true
-do
+do      
+        line
+        echo -e "${GREEN}from dArk#0149 with cyberlove${NORMAL}"
+        line
         int_balance=$(get_int_balance)
         line
-        echo "We have ${int_balance} tokens on balance"
+        echo "We have ${int_balance} IRONs on balance"
         line
         if [ $int_balance -gt "100" ]; then
                 echo "Balance great than 101, then Buy a Roll..."
@@ -124,10 +124,7 @@ do
         fi
         show_last_update
         line
-        #get_balance
-
-        #balance=$(get_balance)
-        echo "Current wallet balance: $(get_int_balance)"
+        echo "Current wallet balance: $(get_int_balance) IRONs"
         echo "Current active rolls  : $(get_rolls)"
         line
         wait_more "60"
