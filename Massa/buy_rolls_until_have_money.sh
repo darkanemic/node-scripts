@@ -91,6 +91,11 @@ function wait_more() {
     printf "\n"
 } 
 
+function get_int_balance {
+    balance=$(get_balance)
+    int_balance=${balance%%.*}
+    echo $int_balance
+}
 
 clear
 colors
@@ -104,8 +109,7 @@ line
 
 while true
 do
-        balance=$(get_balance)
-        int_balance=${balance%%.*}
+        int_balance=$(get_int_balance)
         line
         echo "We have ${int_balance} tokens on balance"
         line
@@ -122,9 +126,10 @@ do
         line
         #get_balance
 
-        balance=${get_balance%%.*}
-        echo "Current wallet balance: ${balance}"
+        #balance=$(get_balance)
+        echo "Current wallet balance: $(get_int_balance)"
         echo "Current active rolls  : $(get_rolls)"
         line
         wait_more "60"
+        clear
 done
