@@ -24,7 +24,7 @@ function get_wallet_address(){
 
 
 function get_balance(){
-	echo $(${CLI} wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+	echo $(${CLI} wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/final=//;s/,//')
 }
 
 function get_rolls(){
@@ -121,8 +121,8 @@ do
         show_last_update
         line
         #get_balance
-        echo $(get_wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
-        echo $(get_wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+        echo $(get_balance)
+        echo $(get_rolls)
         line
         wait_more "60"
 done
