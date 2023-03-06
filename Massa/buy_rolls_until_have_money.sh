@@ -109,6 +109,7 @@ do
                 echo "Balance great than 101, then Buy a Roll..."
                	line
                 buy_roll
+                get_wallet_info
 		else
                 echo "Balance less than 101, wait until the balance will be replenished... Request more in faucet..."
                 echo "Address for request: $wallet_address"
