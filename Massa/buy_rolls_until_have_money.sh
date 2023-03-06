@@ -116,12 +116,12 @@ do
                 line
                 echo -e "${GOOD} Node work properly ${NORMAL}"
                 line
-                if [ $int_balance -gt "100" ]; then
-                    echo "Balance great than 101 IRON, then Buy a Roll..."
+                if [ $int_balance -gt "99" ]; then
+                    echo "Balance great than 100 IRON, then Buy a Roll..."
                	    line
                     buy_roll
 		        else
-                    echo -e "Balance less than 101, wait until the balance will be replenished... Request more in faucet... \n\t"
+                    echo -e "Balance less than 100, wait until the balance will be replenished... Request more in faucet... \n\t"
                     echo  "Address for request: $wallet_address"
                     line
                 fi
