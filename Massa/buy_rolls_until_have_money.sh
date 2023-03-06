@@ -122,8 +122,8 @@ do
         line
         #get_balance
 
-        balance=$(get_balance)
-        echo $balance
+        balance=${get_balance%%.*}
+        echo "Current wallet balance: ${balance}"
         echo $(get_rolls)
         line
         wait_more "60"
