@@ -127,6 +127,6 @@ do
         echo "Current wallet balance: $(get_int_balance) IRONs"
         echo "Current active rolls  : $(get_rolls) ROLLs"
         line
-        wait_more "1"
+        wait_more "60"
         clear
 done
