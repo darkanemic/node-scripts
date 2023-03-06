@@ -61,7 +61,7 @@ function wait() {
 
 function show_last_update  {
     date=$(date +"%e %b %H:%M")
-    echo Last Update: ${date}
+    echo Last status update: ${date}
 }
 
 function wait_more() {
