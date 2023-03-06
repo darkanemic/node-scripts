@@ -118,7 +118,7 @@ do
                	line
                 buy_roll
 		else
-                echo "Balance less than 101, wait until the balance will be replenished... Request more in faucet..."
+                echo -e "Balance less than 101, wait until the balance will be replenished... Request more in faucet.../n"
                 echo "Address for request: $wallet_address"
                 line
         fi
@@ -127,6 +127,6 @@ do
         echo "Current wallet balance: $(get_int_balance) IRONs"
         echo "Current active rolls  : $(get_rolls) ROLLs"
         line
-        wait_more "60"
+        #wait_more "60"
         clear
 done
