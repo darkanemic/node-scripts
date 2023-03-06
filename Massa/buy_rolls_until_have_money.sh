@@ -11,7 +11,7 @@ function colors {
     RED="\033[31m"
     NORMAL="\e[0m"
     WARN="\033[41m\033[30m"
-    GOOD="\033[33m\033[42m"
+    GOOD="\033[30m\033[42m"
 }
 
 
