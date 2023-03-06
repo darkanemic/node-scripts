@@ -114,7 +114,7 @@ do
         #echo "We have ${int_balance} IRONs on balance"
         #line
         if [ $int_balance -gt "100" ]; then
-                echo "Balance great than 101, then Buy a Roll..."
+                echo "Balance great than 101 IRON, then Buy a Roll..."
                	line
                 buy_roll
 		else
@@ -125,7 +125,7 @@ do
         show_last_update
         line
         echo "Current wallet balance: $(get_int_balance) IRONs"
-        echo "Current active rolls  : $(get_rolls)"
+        echo "Current active rolls  : $(get_rolls) ROLLs"
         line
         wait_more "60"
         clear
