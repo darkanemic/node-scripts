@@ -95,7 +95,7 @@ source $HOME/.profile
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
 wallet_address=$(get_wallet_address)
 line
-echo "${RED}from dArk#0149 with cyberlove${NORMSL}"
+echo -e "${RED}from dArk#0149 with cyberlove${NORMAL}"
 line
 
 while true
