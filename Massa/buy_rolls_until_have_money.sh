@@ -116,7 +116,8 @@ do
         fi
         show_last_update
         line
-        get_wallet_info
+        echo $(get_wallet_info) | grep "balance"
+        echo $(get_wallet_info) | grep "rolls"
         line
         wait_more "60"
 done
