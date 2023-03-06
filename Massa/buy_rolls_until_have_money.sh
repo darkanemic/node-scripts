@@ -113,7 +113,6 @@ do
         line
         int_balance=$(get_int_balance)
         if [[ $int_balance -ne "" ]]; then
-                line
                 echo -e "${GOOD} Node work properly ${NORMAL}"
                 line
                 echo "Current wallet balance: $(get_int_balance) IRONs"
