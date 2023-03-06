@@ -27,6 +27,10 @@ function get_balance(){
 	echo $(${CLI} wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
 }
 
+function get_rolls(){
+    echo $(${CLI} wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+}
+
 
 function buy_roll(){
 	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
@@ -116,8 +120,9 @@ do
         fi
         show_last_update
         line
-        grep balance $(get_wallet_info)
-        grep rolls $(get_wallet_info)
+        #get_balance
+        echo $(get_wallet_info | grep "Balance")
+        echo $(get_wallet_info | grep "Rolls")
         line
         wait_more "60"
 done
