@@ -116,6 +116,9 @@ do
                 line
                 echo -e "${GOOD} Node work properly ${NORMAL}"
                 line
+                echo "Current wallet balance: $(get_int_balance) IRONs"
+                echo "Current active rolls  : $(get_rolls) ROLLs"
+                line
                 if [ $int_balance -gt "99" ]; then
                     echo "Balance great than 100 IRON, then Buy a Roll..."
                	    line
@@ -126,9 +129,6 @@ do
                     line
                 fi
                 show_last_update
-                line
-                echo "Current wallet balance: $(get_int_balance) IRONs"
-                echo "Current active rolls  : $(get_rolls) ROLLs"
                 line
         else
             show_last_update
