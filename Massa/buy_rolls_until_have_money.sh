@@ -121,8 +121,8 @@ do
         show_last_update
         line
         #get_balance
-        echo $(get_wallet_info | grep "Balance")
-        echo $(get_wallet_info | grep "Rolls")
+        echo $(get_wallet_info | grep "Balance" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+        echo $(get_wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/final=//;s/,//')
         line
         wait_more "60"
 done
