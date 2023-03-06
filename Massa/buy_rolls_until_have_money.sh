@@ -132,7 +132,6 @@ do
                 echo "Current active rolls  : $(get_rolls) ROLLs"
                 line
         else
-            line
             echo -e "${WARN}The node is not running correctly...The bootstrap may be missing...${NORMAL}"
             line
         fi
