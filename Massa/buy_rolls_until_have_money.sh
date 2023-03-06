@@ -28,7 +28,7 @@ function get_balance(){
 }
 
 function get_rolls(){
-    echo $(${CLI} wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/final=//;s/,//')
+    echo $(${CLI} wallet_info | grep "Rolls" | awk '{ print $2 }' | sed 's/active=//;s/,//')
 }
 
 
@@ -124,7 +124,7 @@ do
 
         balance=${get_balance%%.*}
         echo "Current wallet balance: ${balance}"
-        echo $(get_rolls)
+        echo "Current active rolls  : $(get_rolls)"
         line
         wait_more "60"
 done
