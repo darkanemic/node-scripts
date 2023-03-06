@@ -111,12 +111,12 @@ do
         line
         echo -e "${GREEN}from dArk#0149 with cyberlove${NORMAL}"
         line
-        int_balance=$(get_int_balance)
         line
-        #echo "We have ${int_balance} IRONs on balance"
-        #line
+        int_balance=$(get_int_balance)
         if [[ $int_balance -ne "" ]]; then
+                line
                 echo -e "${GOOD}Node work properly${NORMAL}"
+                line
                 if [ $int_balance -gt "100" ]; then
                     echo "Balance great than 101 IRON, then Buy a Roll..."
                	    line
