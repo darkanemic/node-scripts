@@ -108,6 +108,7 @@ do
                 buy_roll
 		else
                 echo "Balance less than 101, wait until the balance will be replenished... Request more in faucet..."
+                echo "Address for request: $wallet_address"
                 line
         fi
         show_last_update
