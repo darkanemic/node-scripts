@@ -11,7 +11,7 @@ function colors {
     RED="\033[31m"
     NORMAL="\e[0m"
     WARN="\033[41m\033[30m"
-    GOOD="\033[30m\033[42m"
+    GOOD="\033[33m\033[42m"
 }
 
 
@@ -114,7 +114,7 @@ do
         int_balance=$(get_int_balance)
         if [[ $int_balance -ne "" ]]; then
                 line
-                echo -e "${GOOD}Node work properly${NORMAL}"
+                echo -e "${GOOD} Node work properly ${NORMAL}"
                 line
                 if [ $int_balance -gt "100" ]; then
                     echo "Balance great than 101 IRON, then Buy a Roll..."
@@ -133,7 +133,7 @@ do
         else
             show_last_update
             line
-            echo -e "${WARN}The node is not running correctly...The bootstrap may be missing...${NORMAL}"
+            echo -e "${WARN} The node is not running correctly...The bootstrap may be missing... ${NORMAL}"
             line
         fi
         wait_more "60"
