@@ -111,8 +111,8 @@ do
         line
         int_balance=$(get_int_balance)
         line
-        echo "We have ${int_balance} IRONs on balance"
-        line
+        #echo "We have ${int_balance} IRONs on balance"
+        #line
         if [ $int_balance -gt "100" ]; then
                 echo "Balance great than 101, then Buy a Roll..."
                	line
