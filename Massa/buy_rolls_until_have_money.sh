@@ -11,6 +11,7 @@ function colors {
     RED="\033[31m"
     NORMAL="\e[0m"
     WARN="\033[41m\033[30m"
+    GOOD="\033[30m\033[42m"
 }
 
 
@@ -115,6 +116,7 @@ do
         #echo "We have ${int_balance} IRONs on balance"
         #line
         if [[ $int_balance -ne "" ]]; then
+                echo -e "${GOOD}Node work properly${NORMAL}"
                 if [ $int_balance -gt "100" ]; then
                     echo "Balance great than 101 IRON, then Buy a Roll..."
                	    line
