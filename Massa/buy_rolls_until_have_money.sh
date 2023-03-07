@@ -134,7 +134,9 @@ do
             echo -e "${WARN} The node is not running correctly...The bootstrap may be missing... ${NORMAL}"
             line
         fi
+        line
         journalctl -n 10 -f -u massa
+        line
         wait_more "60"
         clear
 done
