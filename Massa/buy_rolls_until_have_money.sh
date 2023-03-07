@@ -135,7 +135,7 @@ do
             line
         fi
         line
-        logs=journalctl -n 10 -u massa
+        logs="journalctl -n 10 -u massa"
         echo $logs
         line
         wait_more "60"
