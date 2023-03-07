@@ -37,7 +37,6 @@ function get_rolls(){
 function buy_roll(){
 	BuyRollResult=$(${CLI} buy_rolls $wallet_address 1 0)
 	echo $BuyRollResult
-	OutputPause
     line
 }
 
