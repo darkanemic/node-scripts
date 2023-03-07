@@ -135,7 +135,7 @@ do
             line
         fi
         line
-        journalctl -n 10 -f -u massa
+        journalctl -n 10 -u massa
         line
         wait_more "60"
         clear
