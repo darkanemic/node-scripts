@@ -94,11 +94,9 @@ line
 echo -e "${GOOD} Obol reinstall. dArk#0149 ${NORMAL}"
 line
 wait_more(5)
-line
 backup_keys
 line
 wait_more(5)
-line
 remove_obol
 line
 clear_volumes
