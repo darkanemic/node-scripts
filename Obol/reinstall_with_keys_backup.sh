@@ -71,7 +71,7 @@ function install_obol {
 }
 
 function restore_keys {
-    mkdir $HOME/charon-distributed-validator-node/.charon/
+    mkdir -p $HOME/charon-distributed-validator-node/.charon/
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
     sudo chown -R 1000:1000 $HOME/charon-distributed-validator-node/.charon/
