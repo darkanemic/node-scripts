@@ -74,7 +74,6 @@ function install_obol {
 
 function restore_keys {
     echo -e "${GOOD} Restoring keys ${NORMAL}"
-    line
     mkdir -p $HOME/charon-distributed-validator-node/.charon/
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
@@ -100,6 +99,8 @@ line
 clear_volumes
 line
 install_obol
+line
+restore_keys
 line
 obol_up
 line
