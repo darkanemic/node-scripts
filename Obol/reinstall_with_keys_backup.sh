@@ -42,23 +42,27 @@ function wait_more() {
 } 
 
 function backup_keys {
-    echo "Backup Obol keys localy to folder $HOME/backup_obol"
+    echo -e "${GOOD} Backup Obol keys localy to folder $HOME/backup_obol ${NORMAL}"
+    line
     mkdir -p $HOME/backup_obol
     cp -r $HOME/charon-distributed-validator-node/.charon/ $HOME/backup_obol
 }
 
 function remove_obol {
-    echo "Swich off Obol conteiners. Delete obol folder..."
+    echo -e "${GOOD} Swich off Obol conteiners. Delete obol folder... ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     rm -rf $HOME/charon-distributed-validator-node
 }
 
 function clear_volumes {
+    echo -e "${GOOD} Clearing containers/images/volumes... $HOME/backup_obol ${NORMAL}"
+    line
     echo "y" | docker container prune && echo "y" | docker image prune -a && echo "y" | docker volume prune -f
 }
 
 function install_obol {
-    echo "Install obol..."
+    echo -e "${GOOD} Install obol... ${NORMAL}"
+    line
     git clone https://github.com/ObolNetwork/charon-distributed-validator-node.git
     cd $HOME/charon-distributed-validator-node/
     git checkout -- $HOME/charon-distributed-validator-node/docker-compose.yml
@@ -71,6 +75,8 @@ function install_obol {
 }
 
 function restore_keys {
+    echo -e "${GOOD} Restoring keys ${NORMAL}"
+    line
     mkdir -p $HOME/charon-distributed-validator-node/.charon/
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
@@ -78,30 +84,26 @@ function restore_keys {
 }
 
 function obol_up {
+    echo -e "${GOOD} Obol UP ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
 }
 
 clear
 colors
 line
-echo "${GOOD}Obol reinstall. dArk#0149${NORMAL}"
+echo -e "${GOOD} Obol reinstall. dArk#0149 ${NORMAL}"
 line
-wait_more "3"
 colors
 line
 backup_keys
-wait_more "3"
 line
 remove_obol
-wait_more "3"
 line
 clear_volumes
-wait_more "3"
 line
 install_obol
 line
-wait_more "3"
 obol_up
 line
-echo "${GOOD}Installation complite...${NORMAL}"
+echo -e "${GOOD}Installation complite...${NORMAL}"
 line
