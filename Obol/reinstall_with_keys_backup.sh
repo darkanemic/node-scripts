@@ -82,8 +82,9 @@ function obol_up {
 }
 
 clear
+colors
 line
-echo "Obol reinstall with local key backup. dArk#0149"
+echo "Obol reinstall. dArk#0149"
 line
 wait_more(3)
 colors
