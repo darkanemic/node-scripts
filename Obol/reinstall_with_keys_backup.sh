@@ -86,21 +86,21 @@ colors
 line
 echo "Obol reinstall. dArk#0149"
 line
-wait_more(3)
+wait_more "3"
 colors
 line
 backup_keys
-wait_more(3)
+wait_more "3"
 line
 remove_obol
-wait_more(3)
+wait_more "3"
 line
 clear_volumes
-wait_more(3)
+wait_more "3"
 line
 install_obol
 line
-wait_more(3)
+wait_more "3"
 obol_up
 line
 echo "{GOOD}Installation complite...{NORMAL}"
