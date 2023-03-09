@@ -105,5 +105,5 @@ install_obol
 line
 obol_up
 line
-echo -e "${GOOD}Installation complite...${NORMAL}"
+echo -e "${GOOD} Installation is complete ${NORMAL}"
 line
