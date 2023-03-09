@@ -88,7 +88,7 @@ function obol_up {
 clear
 colors
 line
-echo -e "${GOOD} Obol reinstall. dArk#0149 ${NORMAL}"
+echo -e "${GOOD} Obol reinstall whith local backup. dArk#0149 ${NORMAL}"
 line
 wait_more "5"
 backup_keys
