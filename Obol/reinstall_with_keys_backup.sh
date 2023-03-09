@@ -43,7 +43,6 @@ function wait_more() {
 
 function backup_keys {
     echo -e "${GOOD} Backup Obol keys localy to folder $HOME/backup_obol ${NORMAL}"
-    line
     mkdir -p $HOME/backup_obol
     cp -r $HOME/charon-distributed-validator-node/.charon/ $HOME/backup_obol
 }
