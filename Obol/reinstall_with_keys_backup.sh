@@ -84,7 +84,7 @@ function obol_up {
 clear
 colors
 line
-echo "Obol reinstall. dArk#0149"
+echo "${GOOD}Obol reinstall. dArk#0149${NORMAL}"
 line
 wait_more "3"
 colors
@@ -103,5 +103,5 @@ line
 wait_more "3"
 obol_up
 line
-echo "{GOOD}Installation complite...{NORMAL}"
+echo "${GOOD}Installation complite...${NORMAL}"
 line
