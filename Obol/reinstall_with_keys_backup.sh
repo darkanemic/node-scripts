@@ -19,6 +19,7 @@ function script_name {
     line
     echo -e "${GOOD} Obol reinstall whith local backup. dArk#0149 ${NORMAL}"
     line
+    wait_more "5"
 }
 
 
@@ -57,6 +58,7 @@ function backup_keys {
     mkdir -p $HOME/backup_obol
     cp -r $HOME/charon-distributed-validator-node/.charon/ $HOME/backup_obol
     line
+    wait_more "5"
 }
 
 
@@ -115,9 +117,7 @@ function complete_message {
 clear
 colors
 script_name
-wait_more "5"
 backup_keys
-wait_more "5"
 remove_obol
 clear_volumes
 install_obol
