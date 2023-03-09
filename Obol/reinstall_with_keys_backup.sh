@@ -48,7 +48,7 @@ function backup_keys {
 }
 
 function remove_obol {
-    echo -e "${GOOD} Swich off Obol conteiners. Delete obol folder... ${NORMAL}"
+    echo -e "${GOOD} Swich off Obol conteiners. Delete Obol folder... ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     rm -rf $HOME/charon-distributed-validator-node
 }
