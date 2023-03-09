@@ -57,7 +57,7 @@ function remove_obol {
 function clear_volumes {
     echo -e "${GOOD} Clearing containers/images/volumes... $HOME/backup_obol ${NORMAL}"
     line
-    echo "y" | docker container prune && echo "y" | docker image prune -a && echo "y" | docker volume prune -f
+    echo "y" | docker container prune &> /dev/null && echo "y" | docker image prune -a &> /dev/null && echo "y" | docker volume prune -f &> /dev/null
 }
 
 function install_obol {
