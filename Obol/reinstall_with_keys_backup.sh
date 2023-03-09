@@ -42,13 +42,13 @@ function wait_more() {
 } 
 
 function backup_keys {
-    echo `Backup Obol keys localy to folder $HOME/backup_obol`
+    echo "Backup Obol keys localy to folder $HOME/backup_obol"
     mkdir -p $HOME/backup_obol
     cp -r $HOME/charon-distributed-validator-node/.charon/ $HOME/backup_obol
 }
 
 function remove_obol {
-    echo "Swich off Obol conteiners. Delete obol folder...```
+    echo "Swich off Obol conteiners. Delete obol folder..."
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     rm -rf $HOME/charon-distributed-validator-node
 }
