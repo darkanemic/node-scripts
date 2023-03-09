@@ -70,14 +70,14 @@ function install_obol {
     sed -i -e 's/9100:9100/19100:9100/' $HOME/charon-distributed-validator-node/docker-compose.yml
 }
 
-functino restore_keys {
+function restore_keys {
     mkdir $HOME/charon-distributed-validator-node/.charon/
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
     sudo chown -R 1000:1000 $HOME/charon-distributed-validator-node/.charon/
 }
 
-functino obol_up {
+function obol_up {
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
 }
 
