@@ -81,6 +81,7 @@ function obol_up {
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
 }
 
+clear
 line
 echo "Obol reinstall with local key backup. dArk#0149"
 line
