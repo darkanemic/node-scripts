@@ -1,5 +1,6 @@
 #!/bash/bin
 
+
 function colors {
     GREEN="\e[32m"
     RED="\033[31m"
@@ -8,9 +9,18 @@ function colors {
     GOOD="\033[30m\033[42m"
 }
 
+
 function line {
-  echo -e "${GREEN}-------------------------------------------------------------------------------------------------------------${NORMAL}"
+    echo -e "${GREEN}-------------------------------------------------------------------------------------------------------------${NORMAL}"
 }
+
+
+function script_name {
+    line
+    echo -e "${GOOD} Obol reinstall whith local backup. dArk#0149 ${NORMAL}"
+    line
+}
+
 
 function wait_more() {
     WTIMEOUT=$1
@@ -41,22 +51,29 @@ function wait_more() {
     printf "\n"
 } 
 
+
 function backup_keys {
     echo -e "${GOOD} Backup Obol keys localy to folder $HOME/backup_obol ${NORMAL}"
     mkdir -p $HOME/backup_obol
     cp -r $HOME/charon-distributed-validator-node/.charon/ $HOME/backup_obol
+    line
 }
+
 
 function remove_obol {
     echo -e "${GOOD} Swich off Obol conteiners. Delete Obol folder... ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     rm -rf $HOME/charon-distributed-validator-node
+    line
 }
+
 
 function clear_volumes {
     echo -e "${GOOD} Clearing containers/images/volumes... $HOME/backup_obol ${NORMAL}"
     echo "y" | docker container prune &> /dev/null && echo "y" | docker image prune -a &> /dev/null && echo "y" | docker volume prune -f &> /dev/null
+    line
 }
+
 
 function install_obol {
     echo -e "${GOOD} Install obol... ${NORMAL}"
@@ -70,7 +87,9 @@ function install_obol {
     echo -e "\nMONITORING_PORT_GRAFANA=4000" >> $HOME/charon-distributed-validator-node/.env
     echo -e "\nCHARON_P2P_EXTERNAL_HOSTNAME=$(curl -s ifconfig.me)" >> $HOME/charon-distributed-validator-node/.env
     sed -i -e 's/9100:9100/19100:9100/' $HOME/charon-distributed-validator-node/docker-compose.yml
+    line
 }
+
 
 function restore_keys {
     echo -e "${GOOD} Restoring keys ${NORMAL}"
@@ -78,31 +97,30 @@ function restore_keys {
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
     sudo chown -R 1000:1000 $HOME/charon-distributed-validator-node/.charon/
+    line
 }
+
 
 function obol_up {
     echo -e "${GOOD} Obol UP ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
+    line
+}
+
+function complete_message {
+    echo -e "${GOOD} Installation is complete ${NORMAL}"
+    line
 }
 
 clear
 colors
-line
-echo -e "${GOOD} Obol reinstall whith local backup. dArk#0149 ${NORMAL}"
-line
+script_name
 wait_more "5"
 backup_keys
-line
 wait_more "5"
 remove_obol
-line
 clear_volumes
-line
 install_obol
-line
 restore_keys
-line
 obol_up
-line
-echo -e "${GOOD} Installation is complete ${NORMAL}"
-line
+complete_message
