@@ -93,10 +93,10 @@ colors
 line
 echo -e "${GOOD} Obol reinstall. dArk#0149 ${NORMAL}"
 line
-wait_more(5)
+wait_more "5"
 backup_keys
 line
-wait_more(5)
+wait_more "5"
 remove_obol
 line
 clear_volumes
