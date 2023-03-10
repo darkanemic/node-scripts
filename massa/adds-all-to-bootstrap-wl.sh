@@ -40,5 +40,5 @@ clear
 colors
 cd $HOME/massa/massa-client/
 allow_all_to_bootstrap
-show_whitelist
+#show_whitelist
 #show_status
