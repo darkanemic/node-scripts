@@ -1,0 +1,35 @@
+global:
+  scrape_interval: 30s # Set the scrape interval to every 30 seconds.
+  evaluation_interval: 30s # Evaluate rules every 30 seconds.
+  external_labels:
+    cluster_name: AlphaCluster
+
+remote_write:
+  - url: https://vm.monitoring.gcp.obol.tech/write
+    authorization:
+      credentials: obolkHfdGWeA?8qlyLtEgtM7==SBuCbm5hWl5XIjlouO=uFECFo0ZJeDCPCD60EbM4phh29zV1oAscvjY0HhOJHIj!ZWzaWU1mpSA/sm/P4eCi4?hp-5uboj77LfX/pg
+    write_relabel_configs:
+      - source_labels: [job]
+        regex: "charon"
+        action: keep # Keeps charon metrics and drop metrics from other containers.
+
+scrape_configs:
+  - job_name: "geth"
+    metrics_path: /debug/metrics/prometheus
+    static_configs:
+      - targets: ["geth:6060"]
+  - job_name: "lighthouse"
+    static_configs:
+      - targets: ["lighthouse:5054"]
+  - job_name: "charon"
+    static_configs:
+      - targets: ["charon:3620"]
+  - job_name: "teku"
+    static_configs:
+      - targets: ["teku:8008"]
+  - job_name: "node-exporter"
+    static_configs:
+      - targets: ["node-exporter:9100"]
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: [ "cadvisor:8080" ]
