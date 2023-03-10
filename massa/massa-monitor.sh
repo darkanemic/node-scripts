@@ -11,7 +11,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════${NORMAL}"
+  echo -e "${GREEN}═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════${NORMAL}" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 }
 
 
@@ -110,7 +110,7 @@ do
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
-                echo -e " ${GOOD} Node work properly ${NORMAL}"
+                echo -e " ${GOOD} Node work properly ${NORMAL}" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
                 line
                 echo " Current wallet balance: $(get_int_balance) IRONs"
                 echo " Current active rolls  : $(get_rolls) ROLLs"
