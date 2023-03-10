@@ -141,6 +141,6 @@ do
         #echo $logs
         #line
         #line
-        wait_more "30"
+        wait_more "60"
         clear
 done
