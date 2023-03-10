@@ -71,7 +71,7 @@ function WaitPressY {
 		echo "Продолжаем выполнение..."
 	else
 		echo "Прерываем выполнение скрипта..."
-		exit
+		#exit
 	fi
 }
 
