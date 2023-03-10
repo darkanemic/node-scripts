@@ -74,7 +74,7 @@ function wait_more() {
     while [ $WTIMEOUT -ge 0 ]; do
     
         #print timeout and current pseudographic char
-        echo -n -e "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
+        echo -n -e "Time until refresh:\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
         #tput rc #restore cursor position
         sleep 1
         
@@ -140,5 +140,6 @@ do
         echo $logs
         line
         wait_more "60"
+        line
         clear
 done
