@@ -1,11 +1,6 @@
 #!/bin/bash
 
 
-function OutputPause {
-	sleep 2s
-}
-
-
 function colors {
    GREEN="\e[32m"
    RED="\e[39m"
@@ -25,11 +20,11 @@ function show_whitelist {
 }
 
 
-function add_to_whitelist {
+function allow_all_to_bootstrap {
 	read -r -p "Введите адреса нод которые будем прикуривать (через пробел):" NeedBootstrapIP
-	echo $(${CLI} node_bootstrap_whitelist add $NeedBootstrapIP)
+	echo $(${CLI} node_bootsrap_whitelist allow-all)
 	line
-	echo "IP $NeedBootstrapIP добавлен(ы) в whitelist"
+	echo "Теперь можно прикуривать любые ноды"
 }
 
 
@@ -45,7 +40,6 @@ CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
 clear
 colors
 cd $HOME/massa/massa-client/
-add_to_whitelist
+allow_all_to_bootstrap
 show_whitelist
 #show_status
-
