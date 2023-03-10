@@ -16,7 +16,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════${NORMAL}"
+  echo -e "${GREEN}═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════${NORMAL}"
 }
 
 
@@ -74,8 +74,7 @@ function wait_more() {
     while [ $WTIMEOUT -ge 0 ]; do
     
         #print timeout and current pseudographic char
-        echo "time to refresh:"
-        echo -n -e "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
+        echo -n -e " time to refresh \r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
         #tput rc #restore cursor position
         sleep 1
         
@@ -142,6 +141,5 @@ do
         line
         line
         wait_more "60"
-        line
         clear
 done
