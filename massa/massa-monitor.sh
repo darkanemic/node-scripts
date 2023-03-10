@@ -110,7 +110,7 @@ do
         echo -e "${RED}$(<banner.txt)${NORMAL}"
         line
         int_balance=""
-        echo -e "${GREEN} MASSA monitor and Roll autobuy ${NORMAL}"
+        echo -e "${GREEN} MASSA monitor and roll auto buy... ${NORMAL}"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
@@ -141,6 +141,6 @@ do
         #echo $logs
         #line
         #line
-        wait_more "60"
+        wait_more "2"
         clear
 done
