@@ -107,7 +107,7 @@ wallet_address=$(get_wallet_address)
 
 while true
 do      
-        echo -e "${RED}$(<banner.txt){NORMAL}"
+        echo -e "${RED} $(<banner.txt) {NORMAL}"
         line
         int_balance=""
         echo -e "${GREEN} MASSA monitor and Roll autobuy ${NORMAL}"
