@@ -21,7 +21,6 @@ function show_whitelist {
 
 
 function allow_all_to_bootstrap {
-	read -r -p "Введите адреса нод которые будем прикуривать (через пробел):" NeedBootstrapIP
 	echo $(${CLI} node_bootsrap_whitelist allow-all)
 	line
 	echo "Теперь можно прикуривать любые ноды"
