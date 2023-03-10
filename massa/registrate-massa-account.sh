@@ -66,7 +66,7 @@ function RegStakingAddress(){
 }
 
 function WaitPressY(){
-	read -n -s 1 input
+	read input
 	if [[ "$input" == "Y" || "$input" == "y" ]]; then
 		echo "Продолжаем выполнение..."
 	else
