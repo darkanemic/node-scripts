@@ -108,7 +108,7 @@ wallet_address=$(get_wallet_address)
 while true
 do      
         line
-        echo -e "${GREEN}from dArk#0149 with cyberlove${NORMAL}"
+        echo -e "${GREEN} MASSA monitor ${NORMAL}"
         line
         int_balance=$(get_int_balance)
         if [[ $int_balance -ne "" ]]; then
