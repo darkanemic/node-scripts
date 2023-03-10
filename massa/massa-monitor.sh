@@ -110,7 +110,8 @@ do
         echo -e "${RED}$(<banner.txt)${NORMAL}"
         line
         int_balance=""
-        echo -e "${GREEN} MASSA monitor and roll auto buy... ${NORMAL}"
+        echo -e "${GREEN} MASSA monitor and roll auto buy... ${NORMAL}" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+        #echo -e "${GREEN} MASSA monitor and roll auto buy... ${NORMAL}"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
