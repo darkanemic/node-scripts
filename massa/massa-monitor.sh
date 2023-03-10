@@ -136,11 +136,11 @@ do
             echo -e "${WARN} The node is not running correctly...The bootstrap may be missing... ${NORMAL}"
             line
         fi
-        line
-        logs=$(journalctl -n 10 -u massa)
-        echo $logs
-        line
-        line
+        #line
+        #logs=$(journalctl -n 10 -u massa)
+        #echo $logs
+        #line
+        #line
         wait_more "60"
         clear
 done
