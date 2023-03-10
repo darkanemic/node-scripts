@@ -112,7 +112,7 @@ do
         echo -e "${GREEN} MASSA monitor ${NORMAL}"
         line
         int_balance=$(get_int_balance)
-        if [[ $int_balance -ne "" ]]; then
+        if [[ ${#int_balance} > 0 ]]; then
                 echo -e "${GOOD} Node work properly ${NORMAL}"
                 line
                 echo "Current wallet balance: $(get_int_balance) IRONs"
@@ -136,7 +136,7 @@ do
             line
         fi
         line
-        logs="journalctl -n 10 -u massa"
+        logs=$(journalctl -n 10 -u massa)
         echo $logs
         line
         wait_more "60"
