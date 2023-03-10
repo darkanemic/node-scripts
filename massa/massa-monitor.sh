@@ -110,7 +110,7 @@ do
         echo "${RED}$(<banner.txt){NORMAL}"
         line
         int_balance=""
-        echo -e "${GREEN} MASSA monitor ${NORMAL}"
+        echo -e "${GREEN} MASSA monitor and Roll autobuy ${NORMAL}"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
