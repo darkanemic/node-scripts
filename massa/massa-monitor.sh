@@ -1,11 +1,6 @@
 #!/bin/bash
 
 
-function OutputPause(){
-	sleep 2s
-}
-
-
 function colors {
     GREEN="\e[32m"
     RED="\033[31m"
@@ -60,7 +55,7 @@ function wait() {
 
 function show_last_update  {
     date=$(date +"%e %b %H:%M")
-    echo Last status update: ${date}
+    echo " Last status update: ${date}"
 }
 
 function wait_more() {
