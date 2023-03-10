@@ -21,8 +21,8 @@ function show_whitelist {
 
 
 function allow_all_to_bootstrap {
-	echo $(${CLI} node_bootsrap_whitelist allow-all)
-	line
+	echo $(${CLI} node_bootstrap_whitelist allow-all)
+	line          
 	echo "Теперь можно прикуривать любые ноды"
 }
 
