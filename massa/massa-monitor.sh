@@ -107,7 +107,7 @@ wallet_address=$(get_wallet_address)
 
 while true
 do      
-        echo "${GREEN}<$(banner.txt){NORMAL}"
+        echo "${RED}<$(banner.txt){NORMAL}"
         line
         int_balance=""
         echo -e "${GREEN} MASSA monitor ${NORMAL}"
