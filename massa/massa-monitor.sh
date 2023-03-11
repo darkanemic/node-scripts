@@ -11,7 +11,7 @@ function colors {
 
 
 function line {
-  echo -e "${GREEN}═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════${NORMAL}"
+  print_at_centre "${GREEN}════════════════════════════════════════════════════════════════════════════════════════${NORMAL}"
 }
 
 
@@ -55,8 +55,9 @@ function wait() {
 
 function show_last_update  {
     date=$(date +"%e %b %H:%M")
-    echo " Last status update: ${date}"
+    print_at_centre " Last status update: ${date}"
 }
+
 
 function wait_more() {
     WTIMEOUT=$1
