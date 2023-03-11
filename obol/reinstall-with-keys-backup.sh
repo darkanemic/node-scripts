@@ -99,6 +99,7 @@ function restore_keys {
     cp -r $HOME/backup_obol/.charon $HOME/charon-distributed-validator-node/
     chmod o+rw -R $HOME/charon-distributed-validator-node
     sudo chown -R 1000:1000 $HOME/charon-distributed-validator-node/.charon/
+    sudo chmod -R 777 $HOME/charon-distributed-validator-node/teku/
     line
 }
 
