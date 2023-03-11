@@ -17,7 +17,7 @@ function line {
 
 function script_name {
     line
-    echo -e "${GOOD} Obol reinstall whith local backup. dArk#0149 ${NORMAL}"
+    echo -e "${GOOD} Obol reinstall whith local backup. {NORMAL}"
     line
     wait_more "5"
 }
@@ -71,7 +71,7 @@ function remove_obol {
 
 
 function clear_volumes {
-    echo -e "${GOOD} Clearing containers/images/volumes... $HOME/backup_obol ${NORMAL}"
+    echo -e "${GOOD} Clearing containers/images/volumes... ${NORMAL}"
     echo "y" | docker container prune &> /dev/null && echo "y" | docker image prune -a &> /dev/null && echo "y" | docker volume prune -f &> /dev/null
     line
 }
