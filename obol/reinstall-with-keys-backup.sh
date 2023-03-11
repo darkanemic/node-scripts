@@ -17,7 +17,7 @@ function line {
 
 function script_name {
     line
-    echo -e "${GOOD} Obol reinstall whith local backup. {NORMAL}"
+    echo -e "${GOOD} Obol reinstall whith local backup. ${NORMAL}"
     line
     wait_more "5"
 }
