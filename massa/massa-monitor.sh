@@ -102,7 +102,7 @@ wallet_address=$(get_wallet_address)
 
 while true
 do      
-        echo -e "${RED}$(<banner.txt)${NORMAL}" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+        echo -e "${RED}$(<banner.txt)${NORMAL}"
         line
         int_balance=""
         echo -e "${GREEN} MASSA monitor and roll auto buy... ${NORMAL}" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
