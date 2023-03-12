@@ -200,7 +200,15 @@ routable_ip="45.88.223.12"
 [bootstrap]
     # list of bootstrap (ip, node id)
     bootstrap_list = [
-	["45.88.223.8:31245", "N13B1p13AVR8BRuddECY6SqyV9wqjaSECBaqa4Kb5ozzTigkuoZ"],
+	["45.88.223.11:31245", "P12ecGoTLm3txkJAuRazxx5768dKwpCgUmjxfjZLk6gUzGvuk3Cp"],
+	["45.88.223.10:31245", "P121BYHFb6vvUc4PF7SErh1doKkukZBvBZiimHsfNy47uSUiyaBL"],
+	["45.88.223.9:31245", "P12SZaLogBnF4rRMhtVbv8WWXY8imFCjmroY1s6WXCj2Vv9qiGv8"],
+	["45.88.223.8:31245", "P13B1p13AVR8BRuddECY6SqyV9wqjaSECBaqa4Kb5ozzTigkuoZ"],
+	["45.88.223.7:31245", "P12S3BFKiwo6AahaRjmGxATVgf9qMSjBEdtmYP1xtmKwvn1kQZTZ"],
+	["45.88.223.6:31245", "P1Ci3ZkDAMwqdFRdbSni7zjN5aSu5T9559GjPs2MRn9AvAMa4Mw"],
+	["45.88.223.5:31245", "P1JSo75ZpYdXmeJ6es3v9h46VLAiePAoBPDvwzyDGNzAybuuDSy"],
+	["45.88.223.4:31245", "P122g8P4NF4RxNAJsFVMbxi3mTTrwVAa6KGYXCPmqeDKeC8fL7x8"],
+	["45.88.223.3:31245", "N2rEghrstjwxAPJMrUjTDKZbcrBuXVp9xQe3kVEa6bCCxTs58rH"],
    ]
     # force the bootstrap protocol to use: "IPv4", "IPv6", or "Both". Defaults to using both protocols.
     bootstrap_protocol = "Both"
