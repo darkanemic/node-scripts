@@ -172,6 +172,8 @@ while true
 do
         display_txt_file_center "banner.txt" "$RED"
         line
+        logs=$(journalctl -n 20 -u massa)
+        echo $logs
         int_balance=""
         print_at_center "  MONITOR AND ROLL AUTOBUY " "$YELLOW"
         line
