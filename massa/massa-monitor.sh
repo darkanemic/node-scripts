@@ -172,7 +172,7 @@ do
         display_txt_file_center "banner.txt" "$RED"
         line
         int_balance=""
-        print_at_center "  monitor and roll auto buy " "$YELLOW"
+        print_at_center "  MONITOR AND ROLL AUTOBUY " "$YELLOW"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
