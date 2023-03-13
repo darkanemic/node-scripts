@@ -199,7 +199,7 @@ do
             line
         fi
         line
-        logs=$(journalctl -n 40 -u massa)
+        logs=$(journalctl -n 20 -u massa)
         echo $logs
         line
 	progress_timer 10 "$YELLOW"
