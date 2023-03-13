@@ -161,6 +161,7 @@ function progress_timer {
 
 clear
 colors
+curl -s "https://raw.githubusercontent.com/darkanemic/node-scripts/main/massa/banner.txt" > banner.txt
 cd $HOME/massa/massa-client/
 source $HOME/.profile
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
