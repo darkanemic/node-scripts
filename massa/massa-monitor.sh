@@ -122,7 +122,7 @@ function progress_timer {
 
   # set terminal to allow backspacing
   tput civis
-  stty -echo
+#  stty -echo
 
   while [ $elapsed -le $duration ]; do
     local remaining=$((duration-elapsed))
@@ -154,7 +154,7 @@ function progress_timer {
   printf "\n"
 
   # reset terminal
-  stty echo
+#  stty echo
   tput cnorm
 }
 
@@ -199,8 +199,8 @@ do
             line
         fi
         line
-        logs=$(journalctl -n 10 -u massa)
-#        echo $logs
+        logs=$(journalctl -n 20 -u massa)
+        echo $logs
         line
 	progress_timer 30 "$YELLOW"
 #        wait_more "60"
