@@ -172,22 +172,22 @@ do
         display_txt_file_center "banner.txt" "$RED"
         line
         int_balance=""
-        print_at_center "  monitor and roll auto buy " "$GREEN"
+        print_at_center "  monitor and roll auto buy " "$YELLOW"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
                 print_at_center " Node work properly " "$GOOD"
                 line
-                print_at_center "Current wallet balance: $(get_int_balance) IRONs" "$GREEN"
-                print_at_center "Current active rolls  : $(get_rolls) ROLLs" "$GREEN"
+                print_at_center "Current wallet balance: $(get_int_balance) IRONs" "$YELLOW"
+                print_at_center "Current active rolls  : $(get_rolls) ROLLs" "$YELLOW"
                 line
                 if [ $int_balance -gt "99" ]; then
-                    print_at_center "Balance great than 100 IRON, then Buy a Roll..." "$GREEN"
+                    print_at_center "Balance great than 100 IRON, then Buy a Roll..." "$YELLOW"
                	    line
                     buy_roll
 		        else
-                    print_at_center  "Balance less than 100, wait until the balance will be replenished... Request more in faucet..." "$GREEN"
-                    print_at_center  "Address for request tokens : $wallet_address" "$GREEN"
+                    print_at_center  "Balance less than 100, wait until the balance will be replenished... Request more in faucet..." "$YELLOW"
+                    print_at_center  "Address for request tokens : $wallet_address" "$YELLOW"
                     line
                 fi
                 show_last_update
