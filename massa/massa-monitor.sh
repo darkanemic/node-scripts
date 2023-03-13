@@ -202,7 +202,7 @@ do
         logs=$(journalctl -n 10 -u massa)
         echo $logs
         line
-	progress_timer 60 "$YELLOW"
+	progress_timer 30 "$YELLOW"
 #        wait_more "60"
         clear
 done
