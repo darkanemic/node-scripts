@@ -176,6 +176,7 @@ do
         line
         logs=$(journalctl -n 20 -u massa)
         echo $logs
+        line
         int_balance=""
         print_at_center " MONITOR AND ROLL AUTOBUY " "$YELLOW"
         line
