@@ -163,7 +163,7 @@ clear
 colors
 source $HOME/.profile
 cd $HOME/massa/massa-client/
-curl -s https://raw.githubusercontent.com/darkanemic/node-scripts/main/massa/banner.txt > $HOME/massa/massa-client/banner.txt
+sudo curl -s https://raw.githubusercontent.com/darkanemic/node-scripts/main/massa/banner.txt > $HOME/massa/massa-client/banner.txt
 CLI="$HOME/massa/massa-client/./massa-client --pwd ${massa_pass}"
 wallet_address=$(get_wallet_address)
 
