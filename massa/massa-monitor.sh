@@ -172,10 +172,12 @@ while true
 do
         display_txt_file_center "banner.txt" "$RED"
         line
+        print_at_center " Logs: " "$YELLOW"
+        line
         logs=$(journalctl -n 20 -u massa)
         echo $logs
         int_balance=""
-        print_at_center "  MONITOR AND ROLL AUTOBUY " "$YELLOW"
+        print_at_center " MONITOR AND ROLL AUTOBUY " "$YELLOW"
         line
         int_balance=$(get_int_balance)
         if [[ ${#int_balance} > 0 ]]; then
