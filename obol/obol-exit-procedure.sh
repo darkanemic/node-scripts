@@ -16,7 +16,7 @@ function print_at_center(){
 	local color=$2
 
 	# Get the width of the terminal
-	local width=109
+	local width=110
 
 	# Calculate the number of spaces to add before and after the text
 	local padding=$((($width - ${#text}) / 2))
