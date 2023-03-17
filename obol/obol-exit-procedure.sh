@@ -45,9 +45,9 @@ function progress_timer {
     local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
     local pos=$(( (max_text_width - text_width) / 2 ))
     if [ $3 == "LEFT" ]; then
-        pos=0
+        pos=10
     fi
-    printf "\r%${pos}s${color}Please wait...Time until next step: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
+    printf "\r%${pos}s${color}Time until next step: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
     printf "${color} ["
 
     local i
