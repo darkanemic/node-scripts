@@ -43,7 +43,7 @@ function progress_timer {
     # calculate position to center text
     local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
     local pos=$(( (max_text_width - text_width) / 2 ))
-    if $3="LEFT" then;
+    if [ $3 == "LEFT" ] then;
         pos=0
     fi
     printf "\r%${pos}s${color}Time until update: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
