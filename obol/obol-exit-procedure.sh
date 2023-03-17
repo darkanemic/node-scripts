@@ -7,6 +7,7 @@ function colors {
     NORMAL="\033[0m"
     WARN="\033[41m\033[30m"
     GOOD="\033[30m\033[42m"
+    ORANGE_TITLE="\033[30;48;5;202m"
 }
 
 
@@ -17,7 +18,7 @@ function line {
 
 function script_name {
     line
-    echo -e "${GOOD} Obol automatic exit procedure. ${NORMAL}"
+    echo -e "${ORANGE_TITLE} Obol automatic exit procedure. ${NORMAL}"
     line
 }
 
