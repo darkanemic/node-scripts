@@ -145,6 +145,7 @@ function progress_timer {
 
 function obol_down {
     echo -e "${GOOD} Swich off Obol conteiners. ${NORMAL}"
+    line
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     line
 }
@@ -152,6 +153,7 @@ function obol_down {
 
 function obol_update {
     echo -e "${GOOD} Update Obol. ${NORMAL}"
+    line
     cp $HOME/charon-distributed-validator-node/docker-compose.yml $HOME/charon-distributed-validator-node/docker-compose.yml_bkp
     git pull
     line
@@ -159,12 +161,14 @@ function obol_update {
 
 function obol_up {
     echo -e "${GOOD} Obol up again. ${NORMAL}"
+    line
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
     line
 }
 
 function set_exit_keys {
     echo -e "${GOOD} Set exit keys. ${NORMAL}"
+    line
     if [ -d $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
         echo " Kyes already settled. Files alredy exist in folder..."
     else
@@ -178,12 +182,14 @@ function set_exit_keys {
 
 function correct_config {
     echo -e "${GOOD} Correcting voluantary-exit.cfg. ${NORMAL}"
+    line
     sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
     line
 }
 
 function start_exit_procedure {
     echo -e "${GOOD} Start exit procedure. ${NORMAL}"
+    line
     docker-compose -f $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml up
     line
 }
