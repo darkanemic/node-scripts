@@ -81,7 +81,7 @@ function set_exit_keys {
         mkdir $HOME/charon-distributed-validator-node/.charon/exit_keys
         cp $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.* $HOME/charon-distributed-validator-node/.charon/exit_keys
     fi
-    waite_more "3"
+    wait_more "3"
     line
 }
 
