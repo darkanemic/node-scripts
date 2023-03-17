@@ -16,7 +16,7 @@ function line {
 
 function script_name {
     line
-    echo -e "${GOOD} Obol reinstall whith local backup. ${NORMAL}"
+    echo -e "${GOOD} Obol automatic exit procedure. ${NORMAL}"
     line
     wait_more "5"
 }
@@ -86,6 +86,7 @@ function start_exit_procedure {
 }
 
 clear
+script_name
 obol_down
 obol_update
 obol_up
