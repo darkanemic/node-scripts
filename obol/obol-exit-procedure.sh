@@ -61,7 +61,8 @@ function obol_down {
 
 function obol_update {
     echo -e "${GOOD} Update Obol. ${NORMAL}"
-    cp docker-compose.yml docker-compose.yml_bkp
+    cp $HOME/charon-distributed-validator-node/docker-compose.yml $HOME/charon-distributed-validator-node/docker-compose.yml_bkp
+    cd $HOME/charon-distributed-validator-node/
     git pull
     line
 }
