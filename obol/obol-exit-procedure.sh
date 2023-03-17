@@ -44,7 +44,7 @@ function progress_timer {
   local cols=$(tput cols)
   local color=$2
   if [ $3 == "LEFT" ]; then
-    cols=109
+    cols=110
   fi
   local max_text_width=$((cols - 53))  # максимальная ширина текста с учетом прогресс-бара
     
