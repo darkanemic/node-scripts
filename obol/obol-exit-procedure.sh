@@ -86,6 +86,7 @@ function start_exit_procedure {
 }
 
 clear
+colors
 script_name
 obol_down
 obol_update
