@@ -74,7 +74,7 @@ function obol_up {
 
 function set_exit_keys {
     echo -e "${GOOD} Set exit keys. ${NORMAL}"
-    if [ -f $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
+    if [ -d $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
         echo " Kyes already settled. Files alredy exist in folder..."
     else
         echo "No keys found. Lets create them..."
