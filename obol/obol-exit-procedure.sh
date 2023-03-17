@@ -93,6 +93,7 @@ obol_down
 obol_update
 obol_up
 set_exit_keys
+echo -e "${GOOD} Wait 1 minute until Exit Procedure start... . ${NORMAL}"
 wait_more "60"
 start_exit_procedure
 
