@@ -103,7 +103,7 @@ function progress_timer {
   local cols=$(tput cols)
   local color=$2
   local max_text_width=$((cols - 53))  # максимальная ширина текста с учетом прогресс-бара
-
+    
   # set terminal to allow backspacing
   tput civis
 #  stty -echo
@@ -117,7 +117,9 @@ function progress_timer {
     # calculate position to center text
     local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
     local pos=$(( (max_text_width - text_width) / 2 ))
-
+    if $3="LEFT" then;
+        pos=0
+    fi
     printf "\r%${pos}s${color}Time until update: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
     printf "${color} ["
 
@@ -214,7 +216,7 @@ obol_up
 set_exit_keys
 correct_config
 echo -e "${GOOD} We are waiting for synchronization for 10 minutes ${NORMAL}"
-progress_timer "600" "$YELLOW"
+progress_timer "600" "$YELLOW" "LEFT"
 #echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
 start_exit_procedure
