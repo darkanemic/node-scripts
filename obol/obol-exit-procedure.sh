@@ -19,80 +19,6 @@ function script_name {
     line
     echo -e "${GOOD} Obol automatic exit procedure. ${NORMAL}"
     line
-    wait_more "5"
-}
-
-function print_at_center(){
-	# Get the text and the color
-	local text=$1
-	local color=$2
-
-	# Get the width of the terminal
-	local width=$(tput cols)
-
-	# Calculate the number of spaces to add before and after the text
-	local padding=$((($width - ${#text}) / 2))
-
-	# Print the padding and the colored text
-	printf "%${padding}s" && printf "\033[${color}%s\033[0m" "$text" && printf "%${padding}s\n"
-}
-
-function wait_more() {
-    WTIMEOUT=$1
-    ITEM_ARR=0 #current item counter
-    CH_S[0]='-' #pseudographic items
-    CH_S[1]='/'
-    CH_S[2]='|'
-    CH_S[3]='\'
-
-    while [ $WTIMEOUT -ge 0 ]; do
-    
-        #print timeout and current pseudographic char
-        echo -n -e "\r${WTIMEOUT} ${CH_S[ITEM_ARR]}"
-        #tput rc #restore cursor position
-        sleep 1
-        
-        #decrease timeout and increase current item ctr.
-        let "WTIMEOUT=WTIMEOUT-1"
-        let "ITEM_ARR=ITEM_ARR+1"
-        
-        if [ $ITEM_ARR -eq 4 ];then 
-            #if items ctr > number of array items
-            #starting with 0 item
-            let "ITEM_ARR=0"
-        fi
-        
-    done
-    printf "\n"
-} 
-
-function wait_more() {
-    WTIMEOUT=$1
-    ITEM_ARR=0 #current item counter
-    CH_S[0]='-' #pseudographic items
-    CH_S[1]='/'
-    CH_S[2]='|'
-    CH_S[3]='\'
-
-    while [ $WTIMEOUT -ge 0 ]; do
-
-        #print timeout and current pseudographic char
-        echo -n -e "  time until refresh  \r  ${WTIMEOUT} ${CH_S[ITEM_ARR]}"
-        #tput rc #restore cursor position
-        sleep 1
-
-        #decrease timeout and increase current item ctr.
-        let "WTIMEOUT=WTIMEOUT-1"
-        let "ITEM_ARR=ITEM_ARR+1"
-
-        if [ $ITEM_ARR -eq 4 ];then 
-            #if items ctr > number of array items
-            #starting with 0 item
-            let "ITEM_ARR=0"
-        fi
-
-    done
-    printf "\n"
 }
 
 
@@ -178,7 +104,6 @@ function set_exit_keys {
         mkdir $HOME/charon-distributed-validator-node/.charon/exit_keys
         cp $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.* $HOME/charon-distributed-validator-node/.charon/exit_keys
     fi
-    wait_more "3"
     line
 }
 
