@@ -62,7 +62,7 @@ function progress_timer {
     local seconds=$((remaining%60))
     local progress=$((100-elapsed*100/duration))
 
-    printf "\r%${pos}s${color} Time until next step: %02d:%02d${reset}" "" "${minutes}" "$(${seconds}"+" ")
+    printf "\r%${pos}s${color} Time until next step: %02d:%02d${reset}" "" "${minutes}" "$(${seconds}" + " "
     printf "${color} ["
 
     local i
