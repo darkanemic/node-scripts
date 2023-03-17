@@ -92,12 +92,11 @@ function start_exit_procedure {
 }
 
 function WaitPressY {
-    echo -e "${GOOD} Wait until operatar synced and only then press Y. ${NORMAL}"
-	read -n1 -s input
+    read -n1 -s input
 	if [[ "$input" == "Y" || "$input" == "y" ]]; then
-		echo "Продолжаем выполнение..."
+		echo -e "${GOOD} Continue... ${NORMAL}"
 	else
-		echo "Прерываем выполнение скрипта..."
+		echo -e "${GOOD} Exit from script... ${NORMAL}"
 		exit
 	fi
 }
@@ -110,7 +109,7 @@ obol_down
 obol_update
 obol_up
 set_exit_keys
-echo -e "${GOOD} Wait 1 minute until Exit Procedure start... . ${NORMAL}"
+echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 WaitPressY
 start_exit_procedure
 
