@@ -110,6 +110,8 @@ obol_update
 obol_up
 set_exit_keys
 correct_config
+echo -e "${GOOD} Im waiting 5 minutes for synchronization ${NORMAL}"
+wait_more "300"
 echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 WaitPressY
 start_exit_procedure
