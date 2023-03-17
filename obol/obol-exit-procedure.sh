@@ -111,7 +111,6 @@ function set_exit_keys {
 
 function correct_config {
     echo -e "${GOOD} Correcting voluantary-exit.cfg. ${NORMAL}"
-    line
     sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
     line
 }
@@ -143,6 +142,7 @@ obol_up
 set_exit_keys
 correct_config
 echo -e "${GOOD} We are waiting for synchronization for 10 minutes ${NORMAL}"
+line
 progress_timer "600" "$YELLOW" "LEFT"
 #echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
