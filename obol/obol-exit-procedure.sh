@@ -62,7 +62,6 @@ function obol_down {
 function obol_update {
     echo -e "${GOOD} Update Obol. ${NORMAL}"
     cp $HOME/charon-distributed-validator-node/docker-compose.yml $HOME/charon-distributed-validator-node/docker-compose.yml_bkp
-    cd $HOME/charon-distributed-validator-node/
     git pull
     line
 }
@@ -87,6 +86,7 @@ function start_exit_procedure {
 }
 
 clear
+cd $HOME/charon-distributed-validator-node/
 colors
 script_name
 obol_down
