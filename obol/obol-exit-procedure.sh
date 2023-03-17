@@ -29,6 +29,9 @@ function progress_timer {
   local elapsed=0
   local cols=$(tput cols)
   local color=$2
+  if [ $3 == "LEFT" ]; then
+    cols=109
+  fi
   local max_text_width=$((cols - 53))  # максимальная ширина текста с учетом прогресс-бара
     
   # set terminal to allow backspacing
@@ -44,9 +47,7 @@ function progress_timer {
     # calculate position to center text
     local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
     local pos=$(( (max_text_width - text_width) / 2 ))
-    if [ $3 == "LEFT" ]; then
-        pos=10
-    fi
+
     printf "\r%${pos}s${color}Time until next step: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
     printf "${color} ["
 
