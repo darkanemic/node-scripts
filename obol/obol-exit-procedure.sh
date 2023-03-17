@@ -32,7 +32,7 @@ function line {
 
 function script_name {
     line
-    print_at_center " Obol automatic exit procedure. " "
+    print_at_center " Obol automatic exit procedure. " "$ORANGE_TITLE"
     line
 }
 
@@ -161,5 +161,3 @@ progress_timer "600" "$YELLOW" "LEFT"
 #echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
 start_exit_procedure
-
-
