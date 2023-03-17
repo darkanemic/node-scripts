@@ -68,7 +68,7 @@ function obol_update {
 
 function obol_up {
     echo -e "${GOOD} Obol up again. ${NORMAL}"
-    docker-compose $HOME/charon-distributed-validator-node/docker-compose.yml up -d
+    docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
     line
 }
 
