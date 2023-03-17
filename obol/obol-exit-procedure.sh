@@ -109,6 +109,7 @@ obol_down
 obol_update
 obol_up
 set_exit_keys
+correct_config
 echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 WaitPressY
 start_exit_procedure
