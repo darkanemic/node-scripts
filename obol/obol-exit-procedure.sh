@@ -74,8 +74,14 @@ function obol_up {
 
 function set_exit_keys {
     echo -e "${GOOD} Set exit keys. ${NORMAL}"
-    mkdir $HOME/charon-distributed-validator-node/.charon/exit_keys
-    cp $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.* $HOME/charon-distributed-validator-node/.charon/exit_keys
+    if [ -f $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
+        echo " Kyes already settled. Files alredy exist in folder..."
+    else
+        echo "Kyes does not exist. Lets create them..."
+        mkdir $HOME/charon-distributed-validator-node/.charon/exit_keys
+        cp $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.* $HOME/charon-distributed-validator-node/.charon/exit_keys
+    fi
+    waite_more "3"
     line
 }
 
@@ -110,8 +116,8 @@ obol_update
 obol_up
 set_exit_keys
 correct_config
-echo -e "${GOOD} Im waiting 5 minutes for synchronization ${NORMAL}"
-wait_more "300"
+echo -e "${GOOD} We are waiting for synchronization for 10 minutes ${NORMAL}"
+wait_more "600"
 #echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
 start_exit_procedure
