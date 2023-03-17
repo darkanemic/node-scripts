@@ -7,9 +7,23 @@ function colors {
     NORMAL="\033[0m"
     WARN="\033[41m\033[30m"
     GOOD="\033[30m\033[42m"
-    ORANGE_TITLE="\033[30;48;5;202m"
+    ORANGE_TITLE="\033[30;48;5;208m"
 }
 
+function print_at_center(){
+	# Get the text and the color
+	local text=$1
+	local color=$2
+
+	# Get the width of the terminal
+	local width=109
+
+	# Calculate the number of spaces to add before and after the text
+	local padding=$((($width - ${#text}) / 2))
+
+	# Print the padding and the colored text
+	printf "%${padding}s" && printf "\033[${color}%s\033[0m" "$text" && printf "%${padding}s\n"
+}
 
 function line {
     echo -e "${GREEN}-------------------------------------------------------------------------------------------------------------${NORMAL}"
@@ -18,7 +32,7 @@ function line {
 
 function script_name {
     line
-    echo -e "${ORANGE_TITLE} Obol automatic exit procedure. ${NORMAL}"
+    print_at_center " Obol automatic exit procedure. " "
     line
 }
 
