@@ -88,7 +88,7 @@ function progress_timer {
 
 
 function obol_down {
-    echo -e "${GOOD} Swich off Obol conteiners. ${NORMAL}"
+    print_at_center " Swich off Obol conteiners. " "$GOOD"
     line
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
     line
@@ -96,7 +96,7 @@ function obol_down {
 
 
 function obol_update {
-    echo -e "${GOOD} Update Obol. ${NORMAL}"
+    print_at_center " Update Obol. " "$GOOD"
     line
     cp $HOME/charon-distributed-validator-node/docker-compose.yml $HOME/charon-distributed-validator-node/docker-compose.yml_bkp
     git pull
@@ -104,14 +104,14 @@ function obol_update {
 }
 
 function obol_up {
-    echo -e "${GOOD} Obol up again. ${NORMAL}"
+    print_at_center " Obol up again. " "$GOOD"
     line
     docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
     line
 }
 
 function set_exit_keys {
-    echo -e "${GOOD} Set exit keys. ${NORMAL}"
+    print_at_center " Set exit keys. " "$GOOD"
     line
     if [ -d $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
         echo " Kyes already settled. Files alredy exist in folder..."
@@ -124,13 +124,13 @@ function set_exit_keys {
 }
 
 function correct_config {
-    echo -e "${GOOD} Correcting voluantary-exit.cfg. ${NORMAL}"
+    print_at_center " Correcting voluantary-exit.cfg. "  "$GOOD"
     sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
     line
 }
 
 function start_exit_procedure {
-    echo -e "${GOOD} Start exit procedure. ${NORMAL}"
+    print_at_center " Start exit procedure. " "$GOOD"
     line
     docker-compose -f $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml up
     line
@@ -139,9 +139,9 @@ function start_exit_procedure {
 function WaitPressY {
     read -n1 -s input
 	if [[ "$input" == "Y" || "$input" == "y" ]]; then
-		echo -e "${GOOD} Continue... ${NORMAL}"
+		print_at_center "$ Continue... " "$GOOD"
 	else
-		echo -e "${GOOD} Exit from script... ${NORMAL}"
+		print_at_center " Exit from script... " "$GOOD"
 		exit
 	fi
 }
@@ -155,9 +155,9 @@ obol_update
 obol_up
 set_exit_keys
 correct_config
-echo -e "${GOOD} We are waiting for synchronization for 10 minutes ${NORMAL}"
+print_at_center " We are waiting for synchronization for 10 minutes " "$GOOD"
 line
 progress_timer "600" "$YELLOW" "LEFT"
-#echo -e "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
+#print_at_center "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
 start_exit_procedure
