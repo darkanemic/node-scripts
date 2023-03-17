@@ -52,15 +52,15 @@ function progress_timer {
   tput civis
 #  stty -echo
 
+   # calculate position to center text
+   local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
+   local pos=$(( (max_text_width - text_width) / 2 ))
+
   while [ $elapsed -le $duration ]; do
     local remaining=$((duration-elapsed))
     local minutes=$((remaining/60))
     local seconds=$((remaining%60))
     local progress=$((100-elapsed*100/duration))
-
-    # calculate position to center text
-    local text_width=$(( 15 + ${#minutes} + ${#seconds} + 6))  # ширина текста с учетом времени и разделителей
-    local pos=$(( (max_text_width - text_width) / 2 ))
 
     printf "\r%${pos}s${color}Time until next step: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
     printf "${color} ["
