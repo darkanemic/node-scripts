@@ -93,6 +93,7 @@ obol_down
 obol_update
 obol_up
 set_exit_keys
+wait_more "60"
 start_exit_procedure
 
 
