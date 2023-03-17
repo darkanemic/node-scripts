@@ -79,6 +79,12 @@ function set_exit_keys {
     line
 }
 
+function correct_config {
+    echo -e "${GOOD} Correcting voluantary-exit.cfg. ${NORMAL}"
+    sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
+    line
+}
+
 function start_exit_procedure {
     echo -e "${GOOD} Start exit procedure. ${NORMAL}"
     docker-compose -f $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml up
