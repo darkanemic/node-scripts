@@ -46,7 +46,7 @@ function progress_timer {
     if [ $3 == "LEFT" ]; then
         pos=0
     fi
-    printf "\r%${pos}s${color}Time until update: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
+    printf "\r%${pos}s${color}Please wait...Time until next step: %02d:%02d${reset}" "" "${minutes}" "${seconds}"
     printf "${color} ["
 
     local i
