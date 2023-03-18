@@ -74,7 +74,7 @@ function progress_timer {
       printf "-"
     done
 
-    printf "]${NORMAL}"
+    printf "] ${NORMAL}"
     sleep $interval
     elapsed=$((elapsed+interval))
   done
