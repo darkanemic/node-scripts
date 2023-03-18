@@ -114,9 +114,9 @@ function set_exit_keys {
     print_at_center " Set exit keys. " "$GOOD"
     line
     if [ -d $HOME/charon-distributed-validator-node/.charon/exit_keys ]; then
-        echo " Keуs already settled. Files alredy exist in folder..."
+        print_at_cente " Keуs already settled. Files alredy exist in folder..." "$GOOD"
     else
-        echo "No keys found. Lets create them..."
+        print_at_center "No keys found. Lets create them..." "$GOOD"
         mkdir $HOME/charon-distributed-validator-node/.charon/exit_keys
         cp $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.* $HOME/charon-distributed-validator-node/.charon/exit_keys
     fi
