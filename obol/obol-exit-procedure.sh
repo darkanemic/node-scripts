@@ -151,8 +151,7 @@ function WaitPressY {
 }
 
 cd $HOME/charon-distributed-validator-node/
-clear_containers
-clear
+clear_containers && clear
 colors
 script_name
 obol_down
