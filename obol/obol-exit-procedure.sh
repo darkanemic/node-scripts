@@ -136,6 +136,10 @@ function start_exit_procedure {
     line
 }
 
+function clear_containers {
+    docker container prune
+}
+
 function WaitPressY {
     read -n1 -s input
 	if [[ "$input" == "Y" || "$input" == "y" ]]; then
@@ -148,6 +152,7 @@ function WaitPressY {
 
 clear
 cd $HOME/charon-distributed-validator-node/
+clear_containers
 colors
 script_name
 obol_down
