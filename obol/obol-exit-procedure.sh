@@ -137,7 +137,7 @@ function start_exit_procedure {
 }
 
 function clear_containers {
-    docker container prune
+    echo y | docker container prune
 }
 
 function WaitPressY {
