@@ -124,8 +124,14 @@ function set_exit_keys {
 }
 
 function correct_config {
-    print_at_center " Correcting voluantary-exit.cfg. "  "$GOOD"
-    sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
+    #print_at_center " Correcting voluantary-exit.cfg. "  "$GOOD"
+    #sed -i 's/image: consensys\/teku:22.8.0/image: consensys\/teku:22.9.1/g' $HOME/charon-distributed-validator-node/compose-voluntary-exit.yml
+    export EXIT_EPOCH=162304
+    docker exec -ti charon-distributed-validator-node-teku-1 /opt/teku/bin/teku voluntary-exit \
+      --beacon-node-api-endpoint="http://charon:3600/" \
+      --confirmation-enabled=false \
+      --validator-keys="/opt/charon/validator_keys:/opt/charon/validator_keys" \
+      --epoch=162304
     line
 }
 
