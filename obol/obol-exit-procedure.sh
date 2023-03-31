@@ -157,17 +157,17 @@ function WaitPressY {
 }
 
 cd $HOME/charon-distributed-validator-node/
-clear_containers && clear
+#clear_containers && clear
 colors
 script_name
-obol_down
-obol_update
-obol_up
-set_exit_keys
-correct_config
-print_at_center " We are waiting for synchronization for 10 minutes " "$GOOD"
-line
-progress_timer "600" "$ORANGE_TITLE" "LEFT"
+#obol_down
+#obol_update
+#obol_up
+#set_exit_keys
+#correct_config
+#print_at_center " We are waiting for synchronization for 10 minutes " "$GOOD"
+#line
+#progress_timer "600" "$ORANGE_TITLE" "LEFT"
 #print_at_center "${GOOD} Wait until the node is SYNCHRONIZED and only then press Y. ${NORMAL}"
 #WaitPressY
 start_exit_procedure
