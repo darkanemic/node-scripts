@@ -70,5 +70,6 @@ WantedBy=multi-user.target
 EOF
 
 # Перезапускаем 3proxy и включаем его автозапуск
+systemctl daemon-reload
 systemctl restart 3proxy
 systemctl enable 3proxy
