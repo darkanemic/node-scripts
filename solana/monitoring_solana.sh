@@ -29,7 +29,7 @@ sudo cp /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.orig
 sudo rm -rf /etc/telegraf/telegraf.conf
 git clone https://github.com/stakeconomy/solanamonitoring/
 cd solanamonitoring
-#git checkout 830f7ddeca92924dc8e2c557770031c15b33553c
+git checkout 830f7ddeca92924dc8e2c557770031c15b33553c
 chmod +x monitor.sh
 
 cat <<EOF | sudo tee /etc/telegraf/telegraf.conf
