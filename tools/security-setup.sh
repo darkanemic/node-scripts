@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Цвета (если терминал поддерживает)
+# Цвета для вывода (если поддерживается терминалом)
 GREEN=$(tput setaf 2 2>/dev/null || echo "")
 RED=$(tput setaf 1 2>/dev/null || echo "")
 RESET=$(tput sgr0 2>/dev/null || echo "")
@@ -18,7 +18,7 @@ fail() {
     echo "${RED}[✘]${RESET} $1"
 }
 
-# 1. SSH config
+# 1. sshd_config
 step "Обновление sshd_config"
 cat > /etc/ssh/sshd_config <<EOF
 Port 1717
@@ -78,8 +78,8 @@ bash <(curl -s https://raw.githubusercontent.com/darkanemic/node-scripts/main/to
 
 # 5. fail2ban
 step "Установка fail2ban"
-apt update -qq >/dev/null
-PYTHONWARNINGS=ignore apt install -y -qq fail2ban >/dev/null && ok "fail2ban установлен" || fail "Ошибка при установке fail2ban"
+apt-get update -qq >/dev/null
+PYTHONWARNINGS=ignore apt-get install -y -qq fail2ban >/dev/null && ok "fail2ban установлен" || fail "Ошибка при установке fail2ban"
 
 step "Настройка fail2ban"
 cat > /etc/fail2ban/jail.local <<EOF
@@ -98,7 +98,7 @@ systemctl restart fail2ban >/dev/null && ok "fail2ban настроен и зап
 
 # 6. ufw
 step "Установка и настройка ufw"
-apt install -y -qq ufw >/dev/null
+apt-get install -y -qq ufw >/dev/null
 ufw default deny incoming >/dev/null
 ufw default allow outgoing >/dev/null
 ufw allow 1717/tcp >/dev/null
@@ -108,7 +108,7 @@ ufw allow 3000/tcp >/dev/null
 ufw allow 5000:5010/tcp >/dev/null
 ufw --force enable >/dev/null && ok "ufw настроен и активирован" || fail "Ошибка настройки ufw"
 
-# 7. Вывод открытых портов
+# 7. Список портов
 echo
 echo "📜 Разрешённые порты:"
 ufw status numbered | grep -E "ALLOW" || echo "(ничего не открыто)"
