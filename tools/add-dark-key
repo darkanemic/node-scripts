@@ -1,17 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-SSH_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKey user@example"
+# === ВСТАВЬ СВОЙ ПУБЛИЧНЫЙ КЛЮЧ ЗДЕСЬ ===
+SSH_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1qxTyHZnW7sWE787PsyELOUae9jl6QqB75ICfCTJWQjNzAf+6V4ztwrSVECmbNoGKkOWIWwKqEoKQJUbFtquc2KVYsQRSZPneG5/0+rEM9cEuRmfa3u6U7T+N1bGuaYGfjLRUlAafhZfy2mVCVMpZyzdeOLjWJr7TbebIS+ZBVgcXVbDqpcs3RLGqlHM4dPAzyHtXwsbCZrk182yYdLY1amqKgYcE14zfD4ZaDI6FoxaBEUhpcZ5NDiGRL7k+nFsvz/L8xziRtOtnuQho+u7clqffReWt2M1wglUtWcn5U/JUDTgf39/CUkNcMZOdwDfbXMUD9T+AhlvPUz8j5jWMVYzmdbOPdJMAccx9P5yeuvNBrLmHufZNfpDj7F9aeRJjhXNXucHudwC+AiLzsntvbiZlR6aIQvJ8DWFknmynF5V62cp64pYlDWQwgQRljJ40ahT15trqIiis24wmYErjxp0kG3xhjFixwy8U3onbMD5UIf8ms4/ww4DglSUtBKE= dark'
 
-# Создаём каталог .ssh, если его нет
-mkdir -p "$HOME/.ssh"
+# Определяем "целевого" пользователя:
+# - если запущено через sudo: добавляем ключ пользователю, который вызвал sudo
+# - иначе: текущему пользователю
+TARGET_USER="${SUDO_USER:-$(id -un)}"
 
-# Устанавливаем правильные права
-chmod 700 "$HOME/.ssh"
-
-# Добавляем ключ, если его ещё нет
-if ! grep -qxF "$SSH_KEY" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
-    echo "$SSH_KEY" >> "$HOME/.ssh/authorized_keys"
+# Домашняя директория целевого пользователя (работает на macOS и Linux)
+if command -v getent >/dev/null 2>&1; then
+  TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
+else
+  # macOS
+  TARGET_HOME="$(dscl . -read "/Users/$TARGET_USER" NFSHomeDirectory 2>/dev/null | awk '{print $2}')"
+  if [[ -z "${TARGET_HOME:-}" ]]; then
+    TARGET_HOME="$(eval echo "~$TARGET_USER")"
+  fi
 fi
 
-# Права на файл
-chmod 600 "$HOME/.ssh/authorized_keys"
+SSH_DIR="$TARGET_HOME/.ssh"
+AUTH_KEYS="$SSH_DIR/authorized_keys"
+
+mkdir -p "$SSH_DIR"
+chmod 700 "$SSH_DIR"
+
+touch "$AUTH_KEYS"
+chmod 600 "$AUTH_KEYS"
+
+# Если в файле нет перевода строки в конце — добавим перед дописыванием
+if [[ -s "$AUTH_KEYS" ]] && [[ "$(tail -c 1 "$AUTH_KEYS" || true)" != $'\n' ]]; then
+  printf '\n' >> "$AUTH_KEYS"
+fi
+
+# Добавляем ключ только если его ещё нет (точное совпадение строки)
+if ! grep -qxF "$SSH_KEY" "$AUTH_KEYS"; then
+  printf '%s\n' "$SSH_KEY" >> "$AUTH_KEYS"
+fi
+
+# Поправим владельца (если запускали через sudo/root)
+chown "$TARGET_USER" "$SSH_DIR" "$AUTH_KEYS" 2>/dev/null || true
+
+echo "OK: key ensured in $AUTH_KEYS for user $TARGET_USER"
