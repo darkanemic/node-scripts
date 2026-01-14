@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # === ВСТАВЬ СВОЙ ПУБЛИЧНЫЙ КЛЮЧ (одной строкой) ===
-SSH_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1qxTyHZnW7sWE787PsyELOUae9jl6QqB75ICfCTJWQjNzAf+6V4ztwrSVECmbNoGKkOWIWwKqEoKQJUbFtquc2KVYsQRSZPneG5/0+rEM9cEuRmfa3u6U7T+N1bGuaYGfjLRUlAafhZfy2mVCVMpZyzdeOLjWJr7TbebIS+ZBVgcXVbDqpcs3RLGqlHM4dPAzyHtXwsbCZrk182yYdLY1amqKgYcE14zfD4ZaDI6FoxaBEUhpcZ5NDiGRL7k+nFsvz/L8xziRtOtnuQho+u7clqffReWt2M1wglUtWcn5U/JUDTgf39/CUkNcMZOdwDfbXMUD9T+AhlvPUz8j5jWMVYzmdbOPdJMAccx9P5yeuvNBrLmHufZNfpDj7F9aeRJjhXNXucHudwC+AiLzsntvbiZlR6aIQvJ8DWFknmynF5V62cp64pYlDWQwgQRljJ40ahT15trqIiis24wmYErjxp0kG3xhjFixwy8U3onbMD5UIf8ms4/ww4DglSUtBKE= dark'
+SSH_KEY='ssh-ed25519 AAAA... твой_ключ ... comment'
 
-# Целевой пользователь: если запущено через sudo — настраиваем юзера, который вызвал sudo
+# Целевой пользователь: если запуск через sudo — настраиваем того, кто вызвал sudo
 TARGET_USER="${SUDO_USER:-$(id -un)}"
 
 # Домашняя директория пользователя на macOS
@@ -31,11 +31,11 @@ touch "$AUTH_KEYS"
 chmod 600 "$AUTH_KEYS"
 
 # Если файл не пустой и без \n в конце — добавим перевод строки
-if [[ -s "$AUTH_KEYS" ]] && [[ "$(tail -c 1 "$AUTH_KEYS" || true)" != $'\n' ]]; then
+if [[ -s "$AUTH_KEYS" ]] && [[ "$(tail -c 1 "$AUTH_KEYS" 2>/dev/null || true)" != $'\n' ]]; then
   printf '\n' >> "$AUTH_KEYS"
 fi
 
-# Добавим ключ только если его ещё нет
+# Добавим ключ только если его ещё нет (точное совпадение строки)
 if ! grep -qxF "$SSH_KEY" "$AUTH_KEYS" 2>/dev/null; then
   printf '%s\n' "$SSH_KEY" >> "$AUTH_KEYS"
 fi
@@ -45,12 +45,59 @@ chown -R "$TARGET_USER:staff" "$SSH_DIR" 2>/dev/null || true
 
 echo "OK: key ensured in $AUTH_KEYS"
 
-# 2) Включаем Remote Login (sshd) в macOS
-# (требует sudo)
+# Ниже — системные настройки, требуют root
 if [[ "$(id -u)" -ne 0 ]]; then
-  echo "NOTE: to enable Remote Login and edit sshd_config, run this script with sudo."
-else
-  echo "Enabling Remote Login (SSH)..."
-  systemsetup -setremotelogin on >/dev/null
+  echo "NOTE: run with sudo to enable Remote Login and harden sshd_config."
+  exit 0
+fi
 
-  # 3) Жёсткая настройка sshd_co_
+# 2) Включаем Remote Login (SSHD)
+echo "Enabling Remote Login (SSH)..."
+systemsetup -setremotelogin on >/dev/null
+
+# 3) Настраиваем sshd_config
+SSHD_CONFIG="/etc/ssh/sshd_config"
+BACKUP="/etc/ssh/sshd_config.bak.$(date +%Y%m%d%H%M%S)"
+cp -a "$SSHD_CONFIG" "$BACKUP"
+echo "Backup: $BACKUP"
+
+set_sshd_opt() {
+  local key="$1"
+  local value="$2"
+  if grep -Eq "^[#[:space:]]*${key}[[:space:]]+" "$SSHD_CONFIG"; then
+    perl -0777 -i -pe "s/^[#\\s]*${key}\\s+.*\$/${key} ${value}/m" "$SSHD_CONFIG"
+  else
+    printf '\n%s %s\n' "$key" "$value" >> "$SSHD_CONFIG"
+  fi
+}
+
+echo "Hardening sshd_config..."
+
+# Только ключи
+set_sshd_opt "PubkeyAuthentication" "yes"
+set_sshd_opt "PasswordAuthentication" "no"
+set_sshd_opt "KbdInteractiveAuthentication" "no"
+set_sshd_opt "ChallengeResponseAuthentication" "no"
+
+# Запрет root
+set_sshd_opt "PermitRootLogin" "no"
+set_sshd_opt "PermitEmptyPasswords" "no"
+
+# Ограничения
+set_sshd_opt "MaxAuthTries" "3"
+set_sshd_opt "LoginGraceTime" "30"
+set_sshd_opt "ClientAliveInterval" "300"
+set_sshd_opt "ClientAliveCountMax" "2"
+
+# Разрешить логин только этому пользователю (если хочешь разрешить всем — закомментируй)
+set_sshd_opt "AllowUsers" "$TARGET_USER"
+
+# Проверка конфига
+/usr/sbin/sshd -t
+
+# Перезапуск sshd
+echo "Restarting sshd..."
+launchctl stop com.openssh.sshd 2>/dev/null || true
+launchctl start com.openssh.sshd
+
+echo "OK: macOS SSH hardened. Only publickey login allowed for: $TARGET_USER"
