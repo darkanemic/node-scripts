@@ -1,0 +1,17 @@
+#!/bin/bash
+
+SSH_KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKey user@example"
+
+# Создаём каталог .ssh, если его нет
+mkdir -p "$HOME/.ssh"
+
+# Устанавливаем правильные права
+chmod 700 "$HOME/.ssh"
+
+# Добавляем ключ, если его ещё нет
+if ! grep -qxF "$SSH_KEY" "$HOME/.ssh/authorized_keys" 2>/dev/null; then
+    echo "$SSH_KEY" >> "$HOME/.ssh/authorized_keys"
+fi
+
+# Права на файл
+chmod 600 "$HOME/.ssh/authorized_keys"
