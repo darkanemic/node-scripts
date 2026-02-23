@@ -1,0 +1,85 @@
+#!/bin/sh
+# OpenWrt / BusyBox compatible
+# Ensures SSH public key exists in dropbear authorized_keys
+set -eu
+
+# === ВСТАВЬ СВОЙ ПУБЛИЧНЫЙ КЛЮЧ ЗДЕСЬ (ОДНОЙ СТРОКОЙ) ===
+SSH_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1qxTyHZnW7sWE787PsyELOUae9jl6QqB75ICfCTJWQjNzAf+6V4ztwrSVECmbNoGKkOWIWwKqEoKQJUbFtquc2KVYsQRSZPneG5/0+rEM9cEuRmfa3u6U7T+N1bGuaYGfjLRUlAafhZfy2mVCVMpZyzdeOLjWJr7TbebIS+ZBVgcXVbDqpcs3RLGqlHM4dPAzyHtXwsbCZrk182yYdLY1amqKgYcE14zfD4ZaDI6FoxaBEUhpcZ5NDiGRL7k+nFsvz/L8xziRtOtnuQho+u7clqffReWt2M1wglUtWcn5U/JUDTgf39/CUkNcMZOdwDfbXMUD9T+AhlvPUz8j5jWMVYzmdbOPdJMAccx9P5yeuvNBrLmHufZNfpDj7F9aeRJjhXNXucHudwC+AiLzsntvbiZlR6aIQvJ8DWFknmynF5V62cp64pYlDWQwgQRljJ40ahT15trqIiis24wmYErjxp0kG3xhjFixwy8U3onbMD5UIf8ms4/ww4DglSUtBKE= dark'
+
+# Где хранит ключи dropbear на OpenWrt
+DB_DIR="/etc/dropbear"
+AUTH_KEYS="$DB_DIR/authorized_keys"
+
+# Параметры:
+#   --disable-password   отключить вход по паролю (uci) после добавления ключа
+#   --restart            перезапустить dropbear (по умолчанию да)
+DISABLE_PASSWORD=0
+RESTART=1
+
+for arg in "$@"; do
+  case "$arg" in
+    --disable-password) DISABLE_PASSWORD=1 ;;
+    --no-restart) RESTART=0 ;;
+    *) echo "Unknown arg: $arg" >&2; exit 2 ;;
+  esac
+done
+
+# sanity checks
+if [ -z "${SSH_KEY:-}" ]; then
+  echo "ERROR: SSH_KEY is empty" >&2
+  exit 1
+fi
+
+# Создаём каталог/файл
+umask 077
+mkdir -p "$DB_DIR"
+[ -f "$AUTH_KEYS" ] || : > "$AUTH_KEYS"
+
+# Права (важно для dropbear)
+chmod 700 "$DB_DIR"
+chmod 600 "$AUTH_KEYS"
+
+# Убедимся, что в конце файла есть перевод строки, иначе ключ может слиться с предыдущей строкой
+# (BusyBox tail поддерживает -c)
+if [ -s "$AUTH_KEYS" ]; then
+  lastchar="$(tail -c 1 "$AUTH_KEYS" 2>/dev/null || true)"
+  # lastchar будет пустым если tail не поддерживает -c; тогда просто добавим \n безопасно
+  if [ "$lastchar" != "" ] && [ "$lastchar" != "$(printf '\n')" ]; then
+    printf '\n' >> "$AUTH_KEYS"
+  fi
+fi
+
+# Проверяем, есть ли уже такой ключ (точное совпадение строки)
+# BusyBox grep обычно поддерживает -F и -x, но если вдруг -x нет — fallback на фиксированное сравнение построчно
+if grep -F -x -q "$SSH_KEY" "$AUTH_KEYS" 2>/dev/null; then
+  :
+else
+  # fallback: построчное сравнение
+  FOUND=0
+  while IFS= read -r line; do
+    [ "$line" = "$SSH_KEY" ] && FOUND=1 && break
+  done < "$AUTH_KEYS" || true
+
+  if [ "$FOUND" -eq 0 ]; then
+    printf '%s\n' "$SSH_KEY" >> "$AUTH_KEYS"
+  fi
+fi
+
+# Опционально отключаем пароль
+if [ "$DISABLE_PASSWORD" -eq 1 ]; then
+  uci set dropbear.@dropbear[0].PasswordAuth='off' 2>/dev/null || true
+  uci set dropbear.@dropbear[0].RootPasswordAuth='off' 2>/dev/null || true
+  uci commit dropbear 2>/dev/null || true
+fi
+
+# Перезапуск dropbear
+if [ "$RESTART" -eq 1 ]; then
+  /etc/init.d/dropbear restart >/dev/null 2>&1 || true
+fi
+
+echo "OK: key ensured in $AUTH_KEYS (dropbear)."
+if [ "$DISABLE_PASSWORD" -eq 1 ]; then
+  echo "OK: password auth disabled (dropbear uci)."
+else
+  echo "NOTE: password auth unchanged (use --disable-password to turn it off)."
+fi
