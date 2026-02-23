@@ -12,7 +12,7 @@ AUTH_KEYS="$DB_DIR/authorized_keys"
 
 # Параметры:
 #   --disable-password   отключить вход по паролю (uci) после добавления ключа
-#   --restart            перезапустить dropbear (по умолчанию да)
+#   --no-restart         не перезапускать dropbear
 DISABLE_PASSWORD=0
 RESTART=1
 
@@ -30,31 +30,35 @@ if [ -z "${SSH_KEY:-}" ]; then
   exit 1
 fi
 
-# Создаём каталог/файл
+# Создаём каталог/файл (надёжно для BusyBox ash, даже при запуске через pipe | sh)
 umask 077
 mkdir -p "$DB_DIR"
-[ -f "$AUTH_KEYS" ] || : > "$AUTH_KEYS"
+
+if [ ! -f "$AUTH_KEYS" ]; then
+  touch "$AUTH_KEYS"
+fi
+
+if [ ! -f "$AUTH_KEYS" ]; then
+  echo "ERROR: cannot create $AUTH_KEYS" >&2
+  exit 1
+fi
 
 # Права (важно для dropbear)
 chmod 700 "$DB_DIR"
 chmod 600 "$AUTH_KEYS"
 
 # Убедимся, что в конце файла есть перевод строки, иначе ключ может слиться с предыдущей строкой
-# (BusyBox tail поддерживает -c)
 if [ -s "$AUTH_KEYS" ]; then
   lastchar="$(tail -c 1 "$AUTH_KEYS" 2>/dev/null || true)"
-  # lastchar будет пустым если tail не поддерживает -c; тогда просто добавим \n безопасно
   if [ "$lastchar" != "" ] && [ "$lastchar" != "$(printf '\n')" ]; then
     printf '\n' >> "$AUTH_KEYS"
   fi
 fi
 
 # Проверяем, есть ли уже такой ключ (точное совпадение строки)
-# BusyBox grep обычно поддерживает -F и -x, но если вдруг -x нет — fallback на фиксированное сравнение построчно
 if grep -F -x -q "$SSH_KEY" "$AUTH_KEYS" 2>/dev/null; then
   :
 else
-  # fallback: построчное сравнение
   FOUND=0
   while IFS= read -r line; do
     [ "$line" = "$SSH_KEY" ] && FOUND=1 && break
@@ -77,9 +81,20 @@ if [ "$RESTART" -eq 1 ]; then
   /etc/init.d/dropbear restart >/dev/null 2>&1 || true
 fi
 
+# Финальная проверка и вывод содержимого
 echo "OK: key ensured in $AUTH_KEYS (dropbear)."
 if [ "$DISABLE_PASSWORD" -eq 1 ]; then
   echo "OK: password auth disabled (dropbear uci)."
 else
   echo "NOTE: password auth unchanged (use --disable-password to turn it off)."
+fi
+
+if [ -f "$AUTH_KEYS" ]; then
+  echo
+  echo "=== $AUTH_KEYS (contents) ==="
+  # Покажем с номерами строк, чтобы было видно переносы/дубли
+  nl -ba "$AUTH_KEYS" 2>/dev/null || cat "$AUTH_KEYS"
+else
+  echo "ERROR: $AUTH_KEYS is missing after script run" >&2
+  exit 1
 fi
