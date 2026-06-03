@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+#
+# security_audit.sh — read-only срез безопасности сервера.
+# Ничего не меняет. Не выводит секреты (ключи/пароли/API) — только
+# отпечатки, счётчики и эффективные настройки. Отчёт можно вставлять в чат.
+#
+# Запуск:  sudo bash security_audit.sh
+#
+ 
+# Не падаем на отдельных ошибках — отчёт должен собраться целиком.
+set +e
+ 
+line() { printf '\n===== %s =====\n' "$1"; }
+have() { command -v "$1" >/dev/null 2>&1; }
+ 
+echo "########## SECURITY AUDIT REPORT ##########"
+echo "Сгенерирован: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+if [ "$(id -u)" -ne 0 ]; then
+  echo "ВНИМАНИЕ: запущено не от root — часть данных может быть неполной."
+fi
+ 
+line "1. СИСТЕМА"
+echo "Hostname : $(hostname)"
+if [ -r /etc/os-release ]; then . /etc/os-release; echo "ОС       : $PRETTY_NAME"; fi
+echo "Ядро     : $(uname -r)"
+echo "Uptime   : $(uptime -p 2>/dev/null)"
+if [ -f /var/run/reboot-required ]; then
+  echo "Перезагрузка: ТРЕБУЕТСЯ (обновлено ядро/библиотеки)"
+else
+  echo "Перезагрузка: не требуется"
+fi
+ 
+line "2. ОБНОВЛЕНИЯ"
+if have apt-get; then
+  upd=$(apt-get -s -o Debug::NoLocking=true upgrade 2>/dev/null | grep -c '^Inst')
+  sec=$(apt-get -s -o Debug::NoLocking=true upgrade 2>/dev/null | grep -i security | grep -c '^Inst')
+  echo "Доступно обновлений : $upd (из них security: $sec)"
+else
+  echo "apt-get не найден"
+fi
+if systemctl list-unit-files 2>/dev/null | grep -q unattended-upgrades; then
+  echo "unattended-upgrades: $(systemctl is-enabled unattended-upgrades 2>/dev/null) / $(systemctl is-active unattended-upgrades 2>/dev/null)"
+else
+  echo "unattended-upgrades: не установлен"
+fi
+ 
+line "3. SSH (эффективные настройки)"
+if have sshd; then
+  sshd -T 2>/dev/null | grep -iE \
+    '^(port|permitrootlogin|passwordauthentication|pubkeyauthentication|kbdinteractiveauthentication|permitemptypasswords|maxauthtries|x11forwarding|allowtcpforwarding|usepam) '
+else
+  echo "sshd не найден"
+fi
+echo "--- активные SSH-юниты ---"
+systemctl is-active ssh.socket ssh.service 2>/dev/null | paste -d' ' <(echo -e "ssh.socket:\nssh.service:") -
+ 
+line "4. SSH-КЛЮЧИ (только отпечатки, без самих ключей)"
+for home in /root /home/*; do
+  ak="$home/.ssh/authorized_keys"
+  if [ -r "$ak" ]; then
+    n=$(grep -cvE '^\s*(#|$)' "$ak" 2>/dev/null)
+    echo "[$home] ключей: $n"
+    while read -r fp; do [ -n "$fp" ] && echo "    $fp"; done < <(ssh-keygen -lf "$ak" 2>/dev/null)
+  fi
+done
+ 
+line "5. ПОЛЬЗОВАТЕЛИ И SUDO"
+echo "--- аккаунты с интерактивным shell ---"
+grep -E ':/(bin/(ba)?sh|usr/bin/(ba)?sh)$' /etc/passwd | cut -d: -f1,3,7
+echo "--- члены группы sudo/root ---"
+getent group sudo 2>/dev/null
+getent group root 2>/dev/null
+echo "--- аккаунты с UID 0 (должен быть только root) ---"
+awk -F: '($3==0){print $1}' /etc/passwd
+echo "--- пустые пароли (должно быть пусто) ---"
+awk -F: '($2==""){print $1}' /etc/shadow 2>/dev/null
+ 
+line "6. ФАЕРВОЛ"
+if have ufw; then
+  ufw status verbose 2>/dev/null
+else
+  echo "ufw не установлен"
+fi
+echo "--- nftables/iptables (наличие правил) ---"
+if have nft; then echo "nft наборов: $(nft list ruleset 2>/dev/null | grep -c 'chain ')"; fi
+ 
+line "7. СЛУШАЮЩИЕ ПОРТЫ"
+if have ss; then
+  ss -tulnp 2>/dev/null
+else
+  netstat -tulnp 2>/dev/null
+fi
+ 
+line "8. FAIL2BAN"
+if have fail2ban-client; then
+  jails=$(fail2ban-client status 2>/dev/null | sed -n 's/.*Jail list:\s*//p' | tr ',' ' ')
+  echo "Jail-ы: ${jails:-нет}"
+  for j in $jails; do
+    echo "--- $j ---"
+    fail2ban-client status "$j" 2>/dev/null | grep -iE 'currently failed|total failed|currently banned|total banned'
+  done
+else
+  echo "fail2ban не установлен"
+fi
+ 
+line "9. ВХОДЫ В СИСТЕМУ"
+echo "--- последние удачные входы ---"
+last -n 8 2>/dev/null | head -n 8
+echo "--- сводка неудачных входов (топ-10 IP) ---"
+if have lastb; then
+  lastb 2>/dev/null | awk '{print $3}' | grep -E '^[0-9]' | sort | uniq -c | sort -rn | head -n 10
+else
+  journalctl -u ssh -u sshd --no-pager 2>/dev/null | grep -i 'failed password' | grep -oE 'from [0-9.]+' | awk '{print $2}' | sort | uniq -c | sort -rn | head -n 10
+fi
+ 
+line "10. АВТОЗАПУСК (наличие, без содержимого)"
+echo "--- cron-задания (файлы, не содержимое) ---"
+ls -1 /etc/cron.d/ 2>/dev/null
+[ -f /var/spool/cron/crontabs/root ] && echo "root crontab: есть ($(grep -cvE '^\s*(#|$)' /var/spool/cron/crontabs/root) строк)"
+echo "--- включённые systemd-сервисы (кастомные) ---"
+systemctl list-unit-files --state=enabled --type=service 2>/dev/null | grep -vE '^(systemd|getty|ssh|ufw|fail2ban|unattended|cron|dbus|networkd|resolved|rsyslog|apparmor|multipathd|e2scrub|dpkg)' | head -n 25
+ 
+line "11. DOCKER"
+if have docker; then
+  echo "Docker установлен. ВНИМАНИЕ: Docker правит iptables в обход ufw."
+  echo "Запущенных контейнеров: $(docker ps -q 2>/dev/null | wc -l)"
+  echo "--- опубликованные наружу порты контейнеров ---"
+  docker ps --format '{{.Names}}: {{.Ports}}' 2>/dev/null | grep -E '0\.0\.0\.0|::' || echo "(нет проброшенных на 0.0.0.0)"
+else
+  echo "Docker не установлен"
+fi
+ 
+echo
+echo "########## КОНЕЦ ОТЧЁТА ##########"
